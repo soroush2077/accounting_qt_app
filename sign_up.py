@@ -7,7 +7,7 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
-
+import validation
 
 class Ui_SignUpWindow(object):
     def setupUi(self, MainWindow):
@@ -37,17 +37,19 @@ class Ui_SignUpWindow(object):
         self.lineEdit_5.setGeometry(QtCore.QRect(60, 180, 280, 30))
         self.lineEdit_5.setObjectName("lineEdit_5")
         self.lineEdit_5.setPlaceholderText("Password")
+        self.lineEdit_5.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         self.lineEdit_6 = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_6.setGeometry(QtCore.QRect(60, 220, 280, 30))
         self.lineEdit_6.setObjectName("lineEdit_6")
         self.lineEdit_6.setPlaceholderText("Repeat Password")
+        self.lineEdit_6.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         self.lineEdit_7 = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_7.setGeometry(QtCore.QRect(60, 380, 280, 30))
         self.lineEdit_7.setObjectName("lineEdit_7")
         self.lineEdit_7.setPlaceholderText("Email")
         self.lineEdit_8 = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_8.setGeometry(QtCore.QRect(60, 340, 280, 30))
-        self.lineEdit_8.setObjectName("lineEdit_7")
+        self.lineEdit_8.setObjectName("lineEdit_8")
         self.lineEdit_8.setPlaceholderText("What is the name if your pet?")
         self.comboBox = QtWidgets.QComboBox(parent=self.centralwidget)
         self.comboBox.setObjectName("comboBox")
@@ -69,12 +71,21 @@ class Ui_SignUpWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         
+        self.pushButton_signUp=QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_signUp.setGeometry(QtCore.QRect(60, 420, 280, 30))
+        self.pushButton_signUp.setText("Sign Up")
+        self.pushButton_signUp.clicked.connect(self.pushButton_signup_clicked)
+        
+        self.label_error=QtWidgets.QLabel(parent=self.centralwidget)
+        self.label_error.setText("")
+        self.label_error.setGeometry(QtCore.QRect(60, 460, 280, 30))
+        
         self.date = QtWidgets.QDateEdit(parent=self.centralwidget)
         self.date.setCalendarPopup(True)
         self.date.setDisplayFormat("yyyy-MM-dd")
         self.date.setObjectName("date")
         self.date.setGeometry(QtCore.QRect(60, 300, 280, 30))
-
+        
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -94,3 +105,24 @@ class Ui_SignUpWindow(object):
         # self.comboBox.setItemText(3, _translate("MainWindow", "shiraz"))
         # self.comboBox.setItemText(4, _translate("MainWindow", ""))
         # self.comboBox.setItemText(5, _translate("MainWindow", "karaj"))
+    def pushButton_signup_clicked(self):
+        validation.valid_first_name(self.lineEdit.text())
+        if validation.valid_first_name(self.lineEdit.text())!="OK":
+            self.label_error.setText(validation.valid_first_name(self.lineEdit.text()))
+        elif validation.valid_last_name(self.lineEdit_2.text())!="OK":
+            self.label_error.setText(validation.valid_last_name(self.lineEdit_2.text()))
+        elif validation.valid_phone_number(self.lineEdit_3.text())!="OK":
+            self.label_error.setText(validation.valid_phone_number(self.lineEdit_3.text()))
+        elif validation.valid_username(self.lineEdit_4.text())!="OK":
+            self.label_error.setText(validation.valid_username(self.lineEdit_4.text()))
+        elif validation.valid_password(self.lineEdit_5.text())!="OK":
+            self.label_error.setText(validation.valid_password(self.lineEdit_5.text()))
+        elif self.lineEdit_5.text()!=self.lineEdit_6.text():
+            self.label_error.setText("Passwords are not the same")
+        elif validation.valid_email(self.lineEdit_7.text())!="OK":
+            self.label_error.setText(validation.valid_email(self.lineEdit_7.text()))
+        elif validation.valid_security_answer(self.lineEdit_8.text())!="OK":
+            self.label_error.setText(validation.valid_security_answer(self.lineEdit_8.text()))
+        elif validation.valid_city(self.comboBox.currentText())!="OK":
+            self.label_error.setText(validation.valid_city(self.comboBox.currentText()))
+        
