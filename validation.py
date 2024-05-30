@@ -94,8 +94,8 @@ def valid_email(email: str) -> str:
     else:
         return "Invalid email"
 def valid_username(username:str) ->str:
-    pass
+    return "OK"
 def valid_security_answer(answer:str) -> str:
-    pass
+    return "OK"
 def valid_city(city:str) -> str:
-    pass
+    return "OK"

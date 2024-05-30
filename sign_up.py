@@ -8,7 +8,8 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 import validation
-
+import dataBase
+import time
 class Ui_SignUpWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -106,6 +107,7 @@ class Ui_SignUpWindow(object):
         # self.comboBox.setItemText(4, _translate("MainWindow", ""))
         # self.comboBox.setItemText(5, _translate("MainWindow", "karaj"))
     def pushButton_signup_clicked(self):
+        
         validation.valid_first_name(self.lineEdit.text())
         if validation.valid_first_name(self.lineEdit.text())!="OK":
             self.label_error.setText(validation.valid_first_name(self.lineEdit.text()))
@@ -125,4 +127,11 @@ class Ui_SignUpWindow(object):
             self.label_error.setText(validation.valid_security_answer(self.lineEdit_8.text()))
         elif validation.valid_city(self.comboBox.currentText())!="OK":
             self.label_error.setText(validation.valid_city(self.comboBox.currentText()))
+        else:
+            result=dataBase.add_account(self.lineEdit.text(), self.lineEdit_2.text(), self.lineEdit_3.text(), self.lineEdit_4.text(),\
+                self.lineEdit_5.text(), self.lineEdit_7.text(), self.lineEdit_8.text(), self.comboBox.currentText(), self.date.text())
+            if result=="sign up completed":
+                self.label_error.setText("sign up completeted\nyou will be redirected to the login page")
+                time.sleep(5)
+                    
         
