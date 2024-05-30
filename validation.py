@@ -81,12 +81,14 @@ def valid_email(email: str) -> str:
     
     if "@gmail.com" in email or "@yahoo.com" in email:
         email_parts = email.split('@')
-        
-        if email_parts[1] == "gmail.com" or email_parts[1] == "yahoo.com":
-            for char in email_parts[0]:
-                if not ((ord(char) == 46) or (48 <= ord(char) <= 57) or (65 <= ord(char) <= 90) or (97 <= ord(char) <= 122)):
-                    return "Invalid email"
-            return "OK"
+        try:
+            if email_parts[1] == "gmail.com" or email_parts[1] == "yahoo.com":
+                for char in email_parts[0]:
+                    if not ((ord(char) == 46) or (48 <= ord(char) <= 57) or (65 <= ord(char) <= 90) or (97 <= ord(char) <= 122)):
+                        return "Invalid email"
+                return "OK"
+        except:
+            return "Invallid email"
         
         else:
             "Invalid email"
@@ -94,12 +96,34 @@ def valid_email(email: str) -> str:
     else:
 
         return "Invalid email"
-def valid_username(username:str) ->str:
+    
+    
+def valid_username(username: str) -> str:
+    if len(username) == 0:
+        return "Username cannot be empty"
     return "OK"
-def valid_security_answer(answer:str) -> str:
-    return "OK"
-def valid_city(city:str) -> str:
-    return "OK"
-=======
-        return "Invalid email"
 
+
+def valid_security_answer(answer: str) -> str:
+    if len(answer) == 0:
+        return "Security answer cannot be empty"
+    return "OK"
+
+
+def valid_city(city: str) -> str:
+    if len(city) == 0:
+        return "City cannot be empty"
+    return "OK"
+
+
+def valid_birth_date(birth_date: str) -> str:
+    
+    birth_date_parts = birth_date.split('-')
+    
+    if int(birth_date_parts[0]) < 1920:
+        return "Year cannot be less than 1920"
+    
+    elif int(birth_date_parts[0]) > 2005:
+        return "Year cannot be more than 2005"
+    
+    return "OK"
