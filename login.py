@@ -31,7 +31,7 @@ class Ui_LoginWindow(object):
         self.lineEdit_password.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         
         self.label_error = QtWidgets.QLabel(parent=self.centralwidget)
-        self.label_error.setGeometry(QtCore.QRect(30, 300, 250, 30))
+        self.label_error.setGeometry(QtCore.QRect(30, 300, 300, 50))
         self.label_error.setText("")
         self.label_error.setObjectName("label_error")
         self.label_error.setStyleSheet("QLabel { color: red; font-weight: bold; font-style: italic; }")

@@ -61,7 +61,7 @@ class Ui_SignUpWindow(object):
         self.lineEdit_8 = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_8.setGeometry(QtCore.QRect(60, 340, 280, 30))
         self.lineEdit_8.setObjectName("lineEdit_8")
-        self.lineEdit_8.setPlaceholderText("What is the name if your pet?")
+        self.lineEdit_8.setPlaceholderText("What is the name of your pet?")
         
         self.comboBox = QtWidgets.QComboBox(parent=self.centralwidget)
         self.comboBox.setObjectName("comboBox")

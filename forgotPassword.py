@@ -20,7 +20,7 @@ class Ui_ForgotPassWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         
         self.pushButton_forgot_pass = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.pushButton_forgot_pass.setGeometry(QtCore.QRect(90, 400, 200, 40))
+        self.pushButton_forgot_pass.setGeometry(QtCore.QRect(90, 450, 200, 40))
         self.pushButton_forgot_pass.setObjectName("pushButton_forgot_pass")
         
         self.label = QtWidgets.QLabel(parent=self.centralwidget)
@@ -29,13 +29,19 @@ class Ui_ForgotPassWindow(object):
         self.label.setObjectName("label")
         self.label.setWordWrap(True)
         self.label.setStyleSheet("QLabel {font-weight: bold;font-size: 20px;}")
+        self.label.setText("To recover your password, enter your username or email and answer the security question")
             
-        self.lineEdit = QtWidgets.QLineEdit(parent=self.centralwidget)
-        self.lineEdit.setGeometry(QtCore.QRect(90, 350, 200, 40))
+        self.lineEdit = QtWidgets.QLineEdit(parent = self.centralwidget)
+        self.lineEdit.setGeometry(QtCore.QRect(50, 270, 300, 40))
         self.lineEdit.setObjectName("lineEdit")
         self.lineEdit.setPlaceholderText("Username or Email")
-    
         
+        self.lineEdit_security_answer = QtWidgets.QLineEdit(parent = self.centralwidget)
+        self.lineEdit_security_answer.setGeometry(QtCore.QRect(50, 330, 300, 40))
+        self.lineEdit_security_answer.setObjectName("lineEdit_security_answer")
+        self.lineEdit_security_answer.setPlaceholderText("What is the name of your pet?")
+    
+
         MainWindow.setCentralWidget(self.centralwidget)
         
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
@@ -56,4 +62,6 @@ class Ui_ForgotPassWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.pushButton_forgot_pass.setText(_translate("MainWindow", "PushButton"))
-        self.label.setText(_translate("MainWindow", "To recover your password, enter your username or email"))
+       #self.label.setText(_translate("MainWindow", "To recover your password, enter your username or email and answer the security question"))
+
+        

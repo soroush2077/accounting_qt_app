@@ -81,4 +81,4 @@ def user_forgot_pass(email_or_username: str, security_answer: str):
         else:
             return "Incorrect answer"
     
-# add_account("soroush", "ghaemi", "09387149816", "soroush2077" ,"Qwer1234@", "soroush2077@gmail.com", "rex", "mashhad", "2003-12-06")   
+add_account("soroush", "ghaemi", "09387149816", "soroush2077" ,"Qwer1234@", "soroush2077@gmail.com", "rex", "mashhad", "2003-12-06")   
