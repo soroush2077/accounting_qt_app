@@ -7,51 +7,62 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
-import validation
-import dataBase
-import time
+
+
 class Ui_SignUpWindow(object):
+
     def setupUi(self, MainWindow):
+        
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(400, 600)
         MainWindow.setMinimumSize(QtCore.QSize(400, 600))
         MainWindow.setMaximumSize(QtCore.QSize(400, 600))
+        
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+        
         self.lineEdit = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit.setGeometry(QtCore.QRect(60, 20, 280, 30))
         self.lineEdit.setObjectName("lineEdit")
         self.lineEdit.setPlaceholderText("First Name")
+        
         self.lineEdit_2 = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_2.setGeometry(QtCore.QRect(60, 60, 280, 30))
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.lineEdit_2.setPlaceholderText("Last Name")
+        
         self.lineEdit_3 = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_3.setGeometry(QtCore.QRect(60, 100, 280, 30))
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.lineEdit_3.setPlaceholderText("Phone Number")
+        
         self.lineEdit_4 = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_4.setGeometry(QtCore.QRect(60, 140, 280, 30))
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.lineEdit_4.setPlaceholderText("Username")
+        
         self.lineEdit_5 = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_5.setGeometry(QtCore.QRect(60, 180, 280, 30))
         self.lineEdit_5.setObjectName("lineEdit_5")
         self.lineEdit_5.setPlaceholderText("Password")
         self.lineEdit_5.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
+        
         self.lineEdit_6 = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_6.setGeometry(QtCore.QRect(60, 220, 280, 30))
         self.lineEdit_6.setObjectName("lineEdit_6")
         self.lineEdit_6.setPlaceholderText("Repeat Password")
         self.lineEdit_6.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
+        
         self.lineEdit_7 = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_7.setGeometry(QtCore.QRect(60, 380, 280, 30))
         self.lineEdit_7.setObjectName("lineEdit_7")
         self.lineEdit_7.setPlaceholderText("Email")
+        
         self.lineEdit_8 = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_8.setGeometry(QtCore.QRect(60, 340, 280, 30))
         self.lineEdit_8.setObjectName("lineEdit_8")
         self.lineEdit_8.setPlaceholderText("What is the name if your pet?")
+        
         self.comboBox = QtWidgets.QComboBox(parent=self.centralwidget)
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("Mashhad")
@@ -63,22 +74,27 @@ class Ui_SignUpWindow(object):
         self.comboBox.setEditable(True)
         self.comboBox.setCurrentText("City")
         self.comboBox.setGeometry(QtCore.QRect(60, 260, 280, 30))
+        
         MainWindow.setCentralWidget(self.centralwidget)
+        
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 400, 25))
         self.menubar.setObjectName("menubar")
+        
         MainWindow.setMenuBar(self.menubar)
+        
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
         self.statusbar.setObjectName("statusbar")
+        
         MainWindow.setStatusBar(self.statusbar)
         
         self.pushButton_signUp=QtWidgets.QPushButton(parent=self.centralwidget)
         self.pushButton_signUp.setGeometry(QtCore.QRect(60, 420, 280, 30))
         self.pushButton_signUp.setText("Sign Up")
-        self.pushButton_signUp.clicked.connect(self.pushButton_signup_clicked)
         
         self.label_error=QtWidgets.QLabel(parent=self.centralwidget)
         self.label_error.setText("")
+        self.label_error.setStyleSheet("QLabel { color: red; font-weight: bold; font-style: italic; }")
         self.label_error.setGeometry(QtCore.QRect(60, 460, 280, 60))
         
         self.date = QtWidgets.QDateEdit(parent=self.centralwidget)
@@ -93,47 +109,4 @@ class Ui_SignUpWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        # self.lineEdit.setText(_translate("MainWindow", "first name"))
-        # self.lineEdit_2.setText(_translate("MainWindow", "last name"))
-        # self.lineEdit_3.setText(_translate("MainWindow", "phone number"))
-        # self.lineEdit_4.setText(_translate("MainWindow", "user name"))
-        # self.lineEdit_5.setText(_translate("MainWindow", "password"))
-        # self.lineEdit_6.setText(_translate("MainWindow", "repeat password"))
-        # self.lineEdit_7.setText(_translate("MainWindow", "email"))
-        # self.comboBox.setItemText(-1, _translate("MainWindow", "city"))
-        # self.comboBox.setItemText(1, _translate("MainWindow", "tehran"))
-        # self.comboBox.setItemText(2, _translate("MainWindow", "tabriz"))
-        # self.comboBox.setItemText(3, _translate("MainWindow", "shiraz"))
-        # self.comboBox.setItemText(4, _translate("MainWindow", ""))
-        # self.comboBox.setItemText(5, _translate("MainWindow", "karaj"))
-    def pushButton_signup_clicked(self):
-        
-        validation.valid_first_name(self.lineEdit.text())
-        if validation.valid_first_name(self.lineEdit.text())!="OK":
-            self.label_error.setText(validation.valid_first_name(self.lineEdit.text()))
-        elif validation.valid_last_name(self.lineEdit_2.text())!="OK":
-            self.label_error.setText(validation.valid_last_name(self.lineEdit_2.text()))
-        elif validation.valid_phone_number(self.lineEdit_3.text())!="OK":
-            self.label_error.setText(validation.valid_phone_number(self.lineEdit_3.text()))
-        elif validation.valid_username(self.lineEdit_4.text())!="OK":
-            self.label_error.setText(validation.valid_username(self.lineEdit_4.text()))
-        elif validation.valid_password(self.lineEdit_5.text())!="OK":
-            self.label_error.setText(validation.valid_password(self.lineEdit_5.text()))
-        elif self.lineEdit_5.text()!=self.lineEdit_6.text():
-            self.label_error.setText("Passwords are not the same")
-        elif validation.valid_email(self.lineEdit_7.text())!="OK":
-            self.label_error.setText(validation.valid_email(self.lineEdit_7.text()))
-        elif validation.valid_security_answer(self.lineEdit_8.text())!="OK":
-            self.label_error.setText(validation.valid_security_answer(self.lineEdit_8.text()))
-        elif validation.valid_city(self.comboBox.currentText())!="OK":
-            self.label_error.setText(validation.valid_city(self.comboBox.currentText()))
-        elif validation.valid_birth_date(self.date.text()) != "OK":
-            self.label_error.setText(validation.valid_birth_date(self.date.text()))
-        else:
-            result=dataBase.add_account(self.lineEdit.text(), self.lineEdit_2.text(), self.lineEdit_3.text(), self.lineEdit_4.text(),\
-                self.lineEdit_5.text(), self.lineEdit_7.text(), self.lineEdit_8.text(), self.comboBox.currentText(), self.date.text())
-            if result=="sign up completed":
-                self.label_error.setText("sign up completed\nyou will be redirected to the login page")
-                time.sleep(5)
-            elif result == "email must be unique":
-                self.label_error.setText(f"{result}")
+

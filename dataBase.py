@@ -12,9 +12,14 @@ def add_account(first_name:str,last_name:str,phone_number:str,username:str,passw
         db.commit()
         db.close()
     except:
-        return "email must be unique"
+        return "email and username must be unique"
     else:
         return "sign up completed"
+
+def user_login():
+    pass
+def user_forgot_pass():
+    pass
     
 # add_account("soroush", "ghaemi", "09387149816", "soroush2077" ,"Qwer1234@", "soroush2077@gmail.com", "rex", "mashhad", "2006/12/06")
     
