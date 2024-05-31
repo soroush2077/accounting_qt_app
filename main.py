@@ -1,14 +1,15 @@
 import sys
 from PyQt6 import QtWidgets
-from mainwindow import Ui_MainWindow
+from StartUp import Ui_StartUpWindow
 from sign_up import Ui_SignUpWindow
 from login import Ui_LoginWindow
 from forgotPassword import Ui_ForgotPassWindow
+from main_page import Ui_MainPage
 import validation
 import dataBase
 import time
 
-class MainWindow(QtWidgets.QMainWindow,Ui_MainWindow):
+class MainWindow(QtWidgets.QMainWindow,Ui_StartUpWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
         self.setupUi(self)
@@ -74,10 +75,10 @@ class LoginWindow(QtWidgets.QMainWindow,Ui_LoginWindow):
         super(LoginWindow,self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Login")
-        self.pushButton_forgot_password.clicked.connect(self.pushButton_forgot_password_clicked)
+        self.pushButton_forgot_password.clicked.connect(self.open_forgotPassWindow)
     def pushButton_login_clicked(self):
         pass
-    def pushButton_forgot_password_clicked(self):
+    def open_forgotPassWindow(self):
         self.forgotPassWindow=ForgotPassWindow()
         self.forgotPassWindow.show()
         self.close()
@@ -85,8 +86,12 @@ class ForgotPassWindow(QtWidgets.QMainWindow,Ui_ForgotPassWindow):
     def __init__(self):
         super(ForgotPassWindow,self).__init__()
         self.setupUi(self)
-        self.setWindowTitle("Recover Password")         
-
+        self.setWindowTitle("Recover Password")
+class MainPage(QtWidgets.QMainWindow,Ui_MainPage):
+    def __init__(self):
+        super(MainPage,self).__init__()       
+        self.setupUi(self)
+        self.setWindowTitle("My accounting app")
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     main_window = MainWindow()
