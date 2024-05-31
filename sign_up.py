@@ -79,7 +79,7 @@ class Ui_SignUpWindow(object):
         
         self.label_error=QtWidgets.QLabel(parent=self.centralwidget)
         self.label_error.setText("")
-        self.label_error.setGeometry(QtCore.QRect(60, 460, 280, 30))
+        self.label_error.setGeometry(QtCore.QRect(60, 460, 280, 60))
         
         self.date = QtWidgets.QDateEdit(parent=self.centralwidget)
         self.date.setCalendarPopup(True)
@@ -127,11 +127,13 @@ class Ui_SignUpWindow(object):
             self.label_error.setText(validation.valid_security_answer(self.lineEdit_8.text()))
         elif validation.valid_city(self.comboBox.currentText())!="OK":
             self.label_error.setText(validation.valid_city(self.comboBox.currentText()))
+        elif validation.valid_birth_date(self.date.text()) != "OK":
+            self.label_error.setText(validation.valid_birth_date(self.date.text()))
         else:
             result=dataBase.add_account(self.lineEdit.text(), self.lineEdit_2.text(), self.lineEdit_3.text(), self.lineEdit_4.text(),\
                 self.lineEdit_5.text(), self.lineEdit_7.text(), self.lineEdit_8.text(), self.comboBox.currentText(), self.date.text())
             if result=="sign up completed":
-                self.label_error.setText("sign up completeted\nyou will be redirected to the login page")
+                self.label_error.setText("sign up completed\nyou will be redirected to the login page")
                 time.sleep(5)
-                    
-        
+            elif result == "email must be unique":
+                self.label_error.setText(f"{result}")
