@@ -5,9 +5,9 @@ from sign_up import Ui_SignUpWindow
 from login import Ui_LoginWindow
 from forgotPassword import Ui_ForgotPassWindow
 from main_page import Ui_MainPage
+from income import Ui_IncomeWindow
 import validation
 import dataBase
-import time
 
 
 class MainWindow(QtWidgets.QMainWindow,Ui_StartUpWindow):
@@ -102,7 +102,7 @@ class LoginWindow(QtWidgets.QMainWindow,Ui_LoginWindow):
         
         if result == "You have successfully logged in":
             self.label_error.setStyleSheet("QLabel { color: white; font-weight: bold;}")
-            self.label_error.setText("You have successfully logged in\nYou will be redirected to the main page")
+            self.label_error.setText("You have successfully logged in\nYou will be redirected to the main page in 5 seconds")
             QtCore.QTimer.singleShot(5000, self.open_main_page)
             
         else:
@@ -120,6 +120,7 @@ class LoginWindow(QtWidgets.QMainWindow,Ui_LoginWindow):
         
         
 class ForgotPassWindow(QtWidgets.QMainWindow,Ui_ForgotPassWindow):
+    
     def __init__(self):
         super(ForgotPassWindow,self).__init__()
         self.setupUi(self)
@@ -143,15 +144,35 @@ class ForgotPassWindow(QtWidgets.QMainWindow,Ui_ForgotPassWindow):
             
         
 class MainPage(QtWidgets.QMainWindow,Ui_MainPage):
+    
     def __init__(self):
         super(MainPage,self).__init__()       
         self.setupUi(self)
         self.setWindowTitle("My accounting app")
-        
+        self.pushButton_income.clicked.connect(self.open_income_window)
+    
+    def open_income_window(self):
+        self.income_window=IncomeWindow()
+        self.income_window.show()
+        self.close()
+
+
+
+class IncomeWindow(QtWidgets.QMainWindow,Ui_IncomeWindow):
+    
+    def __init__(self):
+        super(IncomeWindow,self).__init__()
+        self.setupUi(self)
+        self.setWindowTitle("Record Income")
+        self.pushButton_submit.clicked.connect(self.pushButton_submit_clicked)
+    
+    def pushButton_submit_clicked(self):
+        pass
         
         
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    main_window = MainWindow()
+    # main_window = MainWindow()
+    main_window =IncomeWindow()
     main_window.show()
     app.exec()
