@@ -81,4 +81,36 @@ def user_forgot_pass(email_or_username: str, security_answer: str):
         else:
             return "Incorrect answer"
     
-add_account("soroush", "ghaemi", "09387149816", "soroush2077" ,"Qwer1234@", "soroush2077@gmail.com", "rex", "mashhad", "2003-12-06")   
+# add_account("soroush", "ghaemi", "09387149816", "soroush2077" ,"Qwer1234@", "soroush2077@gmail.com", "rex", "mashhad", "2003-12-06")   
+
+
+def add_transaction(username, income_or_expense, amount, date, source, type, description = None):
+  
+    
+    conn = connect_db()
+    
+
+    cursor = conn.cursor()
+
+
+    cursor.execute("CREATE TABLE IF NOT EXISTS transactions (\
+        income_or_expense TEXT NOT NULL,\
+        username TEXT NOT NULL,\
+        amount INTEGER NOT NULL,\
+        date DATE NOT NULL,\
+        source TEXT NOT NULL,\
+        description TEXT,\
+        type TEXT NOT NULL\
+    );")
+
+
+    insert_query = "INSERT INTO transactions (username, income_or_expense, amount, date, source, description, type)\
+    VALUES (?, ?, ?, ?, ?, ?, ?);"
+    cursor.execute(insert_query, (username, income_or_expense, amount, date, source, description, type))
+
+
+    conn.commit()
+    conn.close()
+
+
+

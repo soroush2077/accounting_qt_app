@@ -127,3 +127,17 @@ def valid_birth_date(birth_date: str) -> str:
         return "Year cannot be more than 2005"
     
     return "OK"
+
+
+def valid_value(value):
+    
+    for digit in value:
+        if not (48 <= ord(digit) <= 57):
+            return "You must use only digits in amount."
+        
+    if int(value) > 0:
+        return "OK"
+    
+    
+    
+    
