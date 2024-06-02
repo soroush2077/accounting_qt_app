@@ -32,9 +32,9 @@ class Ui_MainPage(object):
         self.pushButton_income.setGeometry(QtCore.QRect(60, 130, 200, 50))
         self.pushButton_income.setObjectName("pushButton_income")
         
-        self.pushButton_expenses = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.pushButton_expenses.setGeometry(QtCore.QRect(310, 130, 200, 50))
-        self.pushButton_expenses.setObjectName("pushButton_expenses")
+        self.pushButton_expense = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_expense.setGeometry(QtCore.QRect(310, 130, 200, 50))
+        self.pushButton_expense.setObjectName("pushButton_expense")
         
         self.pushButton_categories = QtWidgets.QPushButton(parent=self.centralwidget)
         self.pushButton_categories.setGeometry(QtCore.QRect(570, 130, 200, 50))
@@ -78,7 +78,7 @@ class Ui_MainPage(object):
         self.label_head.setText(_translate("MainWindow", "To be determined"))
         
         self.pushButton_income.setText(_translate("MainWindow", "income"))
-        self.pushButton_expenses.setText(_translate("MainWindow", "expenses"))
+        self.pushButton_expense.setText(_translate("MainWindow", "expense"))
         self.pushButton_categories.setText(_translate("MainWindow", "categories"))
         self.pushButton_search.setText(_translate("MainWindow", "Search"))
         self.pushButton_reports.setText(_translate("MainWindow", "Reports"))

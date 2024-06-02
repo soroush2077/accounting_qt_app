@@ -43,11 +43,12 @@ class Ui_IncomeWindow(object):
         # self.lineEdit_description.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
         # self.lineEdit_description.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
         
-        self.label_error = QtWidgets.QLabel(parent=self.centralwidget)
+        self.label_error = QtWidgets.QLabel(parent = self.centralwidget)
         self.label_error.setGeometry(QtCore.QRect(100, 380, 200, 50))
         self.label_error.setStyleSheet("QLabel { color: red; font-weight: bold; font-style: italic; }")
+        self.label_error.setWordWrap(True)
         
-        self.comboBox = QtWidgets.QComboBox(parent=self.centralwidget)
+        self.comboBox = QtWidgets.QComboBox(parent = self.centralwidget)
         self.comboBox.setGeometry(QtCore.QRect(100, 330, 200, 30))
         self.comboBox.setCurrentText("")
         self.comboBox.setObjectName("comboBox")

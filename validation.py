@@ -129,14 +129,42 @@ def valid_birth_date(birth_date: str) -> str:
     return "OK"
 
 
-def valid_value(value):
+def valid_amount(amount: str):
     
-    for digit in value:
+    if len(amount) == 0:
+        return "Amount cannot be empty"
+    
+    for digit in amount:
         if not (48 <= ord(digit) <= 57):
             return "You must use only digits in amount."
         
-    if int(value) > 0:
+    if int(amount) > 0:
         return "OK"
+    
+    
+def valid_source(source: str):
+    
+    if len(source) == 0:
+        return "Source cannot be empty"
+    
+    return "OK"
+
+
+def valid_date(date: str):
+    
+    if len(date) == 0:
+        return "Date cannot be empty"
+    
+    return "OK"
+
+
+def valid_type(type: str):
+    
+    if len(type) == 0:
+        return "Type cannot be empty" 
+    
+    return "OK"
+    
     
     
     

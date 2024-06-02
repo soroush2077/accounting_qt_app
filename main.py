@@ -6,6 +6,7 @@ from login import Ui_LoginWindow
 from forgotPassword import Ui_ForgotPassWindow
 from main_page import Ui_MainPage
 from income import Ui_IncomeWindow
+from expense import Ui_ExpenseWindow
 import validation
 import dataBase
 
@@ -154,10 +155,16 @@ class MainPage(QtWidgets.QMainWindow,Ui_MainPage):
         self.setupUi(self)
         self.setWindowTitle("My accounting app")
         self.pushButton_income.clicked.connect(self.open_income_window)
+        self.pushButton_expense.clicked.connect(self.open_expense_window)
     
     def open_income_window(self):
-        self.income_window=IncomeWindow()
+        self.income_window = IncomeWindow()
         self.income_window.show()
+        self.close()
+        
+    def open_expense_window(self):
+        self.expense_window = ExpenseWindow()
+        self.expense_window.show()
         self.close()
 
 
@@ -172,8 +179,17 @@ class IncomeWindow(QtWidgets.QMainWindow,Ui_IncomeWindow):
     
     def pushButton_submit_clicked(self):
         
-        if validation.valid_value(self.lineEdit_income.text()) != "OK":
-            self.label_error.setText(validation.valid_value(self.lineEdit_income.text()))
+        if validation.valid_amount(self.lineEdit_income.text()) != "OK":
+            self.label_error.setText(validation.valid_amount(self.lineEdit_income.text()))
+            
+        elif validation.valid_source(self.lineEdit_source.text()) != "OK":
+            self.label_error.setText(validation.valid_source(self.lineEdit_source.text()))    
+            
+        elif validation.valid_date(self.dateEdit_date.text()) != "OK":
+            self.label_error.setText(validation.valid_date(self.dateEdit_date.text()))
+            
+        elif validation.valid_type(self.comboBox.currentText()) != "OK":
+            self.label_error.setText(validation.valid_type(self.comboBox.currentText()))
             
         else:
             result = dataBase.add_transaction("", "income", self.lineEdit_income.text(),\
@@ -181,14 +197,45 @@ class IncomeWindow(QtWidgets.QMainWindow,Ui_IncomeWindow):
                                             self.comboBox.currentText(), self.lineEdit_description.text())
             
             self.label_error.setStyleSheet("QLabel { color: white; font-weight: bold;}")
-            self.label_error.setText("Your transaction has been saved.")
+            self.label_error.setText("Your income has been saved.")
             
+            
+            
+class ExpenseWindow(QtWidgets.QMainWindow,Ui_ExpenseWindow):
+    
+    def __init__(self):
+        super(ExpenseWindow,self).__init__()
+        self.setupUi(self)
+        self.setWindowTitle("Record Expense")
+        self.pushButton_submit.clicked.connect(self.pushButton_submit_clicked)
+    
+    def pushButton_submit_clicked(self):
+        
+        if validation.valid_amount(self.lineEdit_expense.text()) != "OK":
+            self.label_error.setText(validation.valid_amount(self.lineEdit_expense.text()))
+            
+        elif validation.valid_source(self.lineEdit_source.text()) != "OK":
+            self.label_error.setText(validation.valid_source(self.lineEdit_source.text()))    
+            
+        elif validation.valid_date(self.dateEdit_date.text()) != "OK":
+            self.label_error.setText(validation.valid_date(self.dateEdit_date.text()))
+            
+        elif validation.valid_type(self.comboBox.currentText()) != "OK":
+            self.label_error.setText(validation.valid_type(self.comboBox.currentText()))
+               
+        else:
+            result = dataBase.add_transaction("", "expense", self.lineEdit_expense.text(),\
+                                            self.dateEdit_date.text(), self.lineEdit_source.text(),\
+                                            self.comboBox.currentText(), self.lineEdit_description.text())
+            
+            self.label_error.setStyleSheet("QLabel { color: white; font-weight: bold;}")
+            self.label_error.setText("Your expense has been saved.")
             
             
             
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     # main_window = MainWindow()
-    main_window =IncomeWindow()
+    main_window = ExpenseWindow()
     main_window.show()
     app.exec()
