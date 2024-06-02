@@ -7,8 +7,11 @@ from forgotPassword import Ui_ForgotPassWindow
 from main_page import Ui_MainPage
 from income import Ui_IncomeWindow
 from expense import Ui_ExpenseWindow
+from categoriy import Ui_Category
 import validation
 import dataBase
+
+
 
 
 
@@ -108,6 +111,7 @@ class LoginWindow(QtWidgets.QMainWindow,Ui_LoginWindow):
         if result == "You have successfully logged in":
             self.label_error.setStyleSheet("QLabel { color: white; font-weight: bold;}")
             self.label_error.setText("You have successfully logged in\nYou will be redirected to the main page in 5 seconds")
+            user_class.set_user(self.lineEdit_username.text())
             QtCore.QTimer.singleShot(5000, self.open_main_page)
             
         else:
@@ -154,19 +158,26 @@ class MainPage(QtWidgets.QMainWindow,Ui_MainPage):
         super(MainPage,self).__init__()       
         self.setupUi(self)
         self.setWindowTitle("My accounting app")
+        
         self.pushButton_income.clicked.connect(self.open_income_window)
         self.pushButton_expense.clicked.connect(self.open_expense_window)
+        self.pushButton_categories.clicked.connect(self.open_category_window)
+        self.pushButton_exit.clicked.connect(exit)
     
     def open_income_window(self):
         self.income_window = IncomeWindow()
         self.income_window.show()
-        self.close()
+        # self.close()
         
     def open_expense_window(self):
         self.expense_window = ExpenseWindow()
         self.expense_window.show()
-        self.close()
+        # self.close()
 
+    def open_category_window(self):
+        self.category_window = Category()
+        self.category_window.show()
+        # self.close()
 
 
 class IncomeWindow(QtWidgets.QMainWindow,Ui_IncomeWindow):
@@ -175,6 +186,7 @@ class IncomeWindow(QtWidgets.QMainWindow,Ui_IncomeWindow):
         super(IncomeWindow,self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Record Income")
+        self.comboBox_source.addItems([item[0] for item in dataBase.get_categories(user_class.curent_user)])       
         self.pushButton_submit.clicked.connect(self.pushButton_submit_clicked)
     
     def pushButton_submit_clicked(self):
@@ -182,19 +194,19 @@ class IncomeWindow(QtWidgets.QMainWindow,Ui_IncomeWindow):
         if validation.valid_amount(self.lineEdit_income.text()) != "OK":
             self.label_error.setText(validation.valid_amount(self.lineEdit_income.text()))
             
-        elif validation.valid_source(self.lineEdit_source.text()) != "OK":
+        elif validation.valid_source(self.comboBox_source.currentText()) != "OK":
             self.label_error.setText(validation.valid_source(self.lineEdit_source.text()))    
             
         elif validation.valid_date(self.dateEdit_date.text()) != "OK":
             self.label_error.setText(validation.valid_date(self.dateEdit_date.text()))
             
-        elif validation.valid_type(self.comboBox.currentText()) != "OK":
+        elif validation.valid_type(self.comboBox_type.currentText()) != "OK":
             self.label_error.setText(validation.valid_type(self.comboBox.currentText()))
             
         else:
-            result = dataBase.add_transaction("", "income", self.lineEdit_income.text(),\
-                                            self.dateEdit_date.text(), self.lineEdit_source.text(),\
-                                            self.comboBox.currentText(), self.lineEdit_description.text())
+            dataBase.add_transaction(user_class.curent_user, "income", self.lineEdit_income.text(),\
+                                            self.dateEdit_date.text(), self.comboBox_source.currentText(),\
+                                            self.comboBox_type.currentText(), self.lineEdit_description.text())
             
             self.label_error.setStyleSheet("QLabel { color: white; font-weight: bold;}")
             self.label_error.setText("Your income has been saved.")
@@ -207,6 +219,7 @@ class ExpenseWindow(QtWidgets.QMainWindow,Ui_ExpenseWindow):
         super(ExpenseWindow,self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Record Expense")
+        self.comboBox_source.addItems([item[0] for item in dataBase.get_categories(user_class.curent_user)])
         self.pushButton_submit.clicked.connect(self.pushButton_submit_clicked)
     
     def pushButton_submit_clicked(self):
@@ -214,28 +227,61 @@ class ExpenseWindow(QtWidgets.QMainWindow,Ui_ExpenseWindow):
         if validation.valid_amount(self.lineEdit_expense.text()) != "OK":
             self.label_error.setText(validation.valid_amount(self.lineEdit_expense.text()))
             
-        elif validation.valid_source(self.lineEdit_source.text()) != "OK":
+        elif validation.valid_source(self.comboBox_source.currentText()) != "OK":
             self.label_error.setText(validation.valid_source(self.lineEdit_source.text()))    
             
         elif validation.valid_date(self.dateEdit_date.text()) != "OK":
             self.label_error.setText(validation.valid_date(self.dateEdit_date.text()))
             
-        elif validation.valid_type(self.comboBox.currentText()) != "OK":
-            self.label_error.setText(validation.valid_type(self.comboBox.currentText()))
+        elif validation.valid_type(self.comboBox_type.currentText()) != "OK":
+            self.label_error.setText(validation.valid_type(self.comboBox_type.currentText()))
                
         else:
-            result = dataBase.add_transaction("", "expense", self.lineEdit_expense.text(),\
-                                            self.dateEdit_date.text(), self.lineEdit_source.text(),\
-                                            self.comboBox.currentText(), self.lineEdit_description.text())
+            result = dataBase.add_transaction(user_class.curent_user, "expense", self.lineEdit_expense.text(),\
+                                            self.dateEdit_date.text(), self.comboBox_source.currentText(),\
+                                            self.comboBox_type.currentText(), self.lineEdit_description.text())
             
             self.label_error.setStyleSheet("QLabel { color: white; font-weight: bold;}")
             self.label_error.setText("Your expense has been saved.")
             
             
             
+class Category(QtWidgets.QMainWindow,Ui_Category):
+    
+    def __init__(self):
+        super(Category,self).__init__()
+        self.setupUi(self)
+        self.setWindowTitle("Categories")
+        self.pushButton_submit.clicked.connect(self.category_submit)
+    
+    def category_submit(self):
+        
+        if validation.valid_category(self.lineEdit_category.text()) != "OK":
+            self.label_result.setText(validation.valid_category(self.lineEdit_category.text()))
+            self.label_result.setStyleSheet("QLabel { color: red; font-weight: bold; font-style: italic; }")
+        
+        else:
+            result = dataBase.add_category(user_class.curent_user, self.lineEdit_category.text())
+            if result == "Category already exists":
+                self.label_result.setText(result)
+                self.label_result.setStyleSheet("QLabel { color: red; font-weight: bold; font-style: italic; }")
+            
+            elif result == "Category added succesfuly":
+                self.label_result.setText(result)
+                self.label_result.setStyleSheet("QLabel { color: white; font-weight: bold;}")
+
+
+
+
+class user_class:
+    curent_user=""
+    def set_user(user):
+        user_class.curent_user=user
+
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    # main_window = MainWindow()
-    main_window = ExpenseWindow()
+    main_window = MainWindow()
+    # main_window = Category()
     main_window.show()
     app.exec()

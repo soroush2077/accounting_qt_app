@@ -35,6 +35,7 @@ class Ui_LoginWindow(object):
         self.label_error.setText("")
         self.label_error.setObjectName("label_error")
         self.label_error.setStyleSheet("QLabel { color: red; font-weight: bold; font-style: italic; }")
+        self.label_error.setWordWrap(True)
         
         self.pushButton_login = QtWidgets.QPushButton(parent=self.centralwidget)
         self.pushButton_login.setGeometry(QtCore.QRect(30, 200, 250, 30))

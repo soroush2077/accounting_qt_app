@@ -8,7 +8,6 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 
-
 class Ui_IncomeWindow(object):
     def setupUi(self, MainWindow):
         
@@ -31,30 +30,28 @@ class Ui_IncomeWindow(object):
         self.dateEdit_date.setGeometry(QtCore.QRect(100, 120, 200, 30))
         self.dateEdit_date.setObjectName("dateEdit_date")
         
-        self.lineEdit_source = QtWidgets.QLineEdit(parent=self.centralwidget)
-        self.lineEdit_source.setGeometry(QtCore.QRect(100, 170, 200, 30))
-        self.lineEdit_source.setObjectName("lineEdit_source")
-        self.lineEdit_source.setPlaceholderText("Income Source")
-        
+        self.comboBox_source = QtWidgets.QComboBox(parent=self.centralwidget)
+        self.comboBox_source.setGeometry(QtCore.QRect(100, 170, 200, 30))
+              
         self.lineEdit_description = QtWidgets.QLineEdit(parent=self.centralwidget)
         self.lineEdit_description.setGeometry(QtCore.QRect(100, 220, 200, 90))
         self.lineEdit_description.setObjectName("lineEdit_description")
         self.lineEdit_description.setPlaceholderText("Transaction Description (optional)")
-        # self.lineEdit_description.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
-        # self.lineEdit_description.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.lineEdit_description.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft)
+        self.lineEdit_description.setAlignment(QtCore.Qt.AlignmentFlag.AlignTop)
         
         self.label_error = QtWidgets.QLabel(parent = self.centralwidget)
         self.label_error.setGeometry(QtCore.QRect(100, 380, 200, 50))
         self.label_error.setStyleSheet("QLabel { color: red; font-weight: bold; font-style: italic; }")
         self.label_error.setWordWrap(True)
         
-        self.comboBox = QtWidgets.QComboBox(parent = self.centralwidget)
-        self.comboBox.setGeometry(QtCore.QRect(100, 330, 200, 30))
-        self.comboBox.setCurrentText("")
-        self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("Check")
-        self.comboBox.addItem("Cash")
-        self.comboBox.addItem("Digital Currency")
+        self.comboBox_type = QtWidgets.QComboBox(parent = self.centralwidget)
+        self.comboBox_type.setGeometry(QtCore.QRect(100, 330, 200, 30))
+        self.comboBox_type.setCurrentText("")
+        self.comboBox_type.setObjectName("comboBox")
+        self.comboBox_type.addItem("Check")
+        self.comboBox_type.addItem("Cash")
+        self.comboBox_type.addItem("Digital Currency")
         
         self.pushButton_submit = QtWidgets.QPushButton(parent=self.centralwidget)
         self.pushButton_submit.setGeometry(QtCore.QRect(100, 450, 200, 50))
@@ -79,6 +76,6 @@ class Ui_IncomeWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.comboBox.setCurrentIndex(-1)
-        self.comboBox.setPlaceholderText(_translate("MainWindow", "Income Type"))
+        self.comboBox_type.setCurrentIndex(-1)
+        self.comboBox_type.setPlaceholderText(_translate("MainWindow", "Income Type"))
         self.pushButton_submit.setText(_translate("MainWindow", "Submit"))

@@ -80,8 +80,7 @@ def user_forgot_pass(email_or_username: str, security_answer: str):
             return user_info['password']
         else:
             return "Incorrect answer"
-    
-# add_account("soroush", "ghaemi", "09387149816", "soroush2077" ,"Qwer1234@", "soroush2077@gmail.com", "rex", "mashhad", "2003-12-06")   
+     
 
 
 def add_transaction(username, income_or_expense, amount, date, source, type, description = None):
@@ -113,4 +112,40 @@ def add_transaction(username, income_or_expense, amount, date, source, type, des
     conn.close()
 
 
+def add_category(username, category):
+    
+    conn = connect_db()
+    
+    cursor = conn.cursor()
+    
+    cursor.execute("CREATE TABLE IF NOT EXISTS categories(\
+        username TEXT NOT NULL,\
+        category TEXT NOT NULL);")
 
+    query = "SELECT category FROM categories WHERE username = ?"
+    cursor.execute(query, (username,))
+    user_category=cursor.fetchall()
+    
+
+    for item in user_category:    
+        if category in item[0]:
+            return "Category already exists"
+    
+    else:
+        insert_query = "INSERT INTO categories (username, category) VALUES (?, ?);"
+        cursor.execute(insert_query, (username, category))
+        conn.commit()
+        conn.close()
+        return "Category added succesfuly"
+    
+def get_categories(username):
+    
+    conn= connect_db()
+    
+    cursor = conn.cursor()
+    
+    query="SELECT category FROM categories WHERE username = ?"
+    cursor.execute(query, (username,))
+    categories = cursor.fetchall()
+    conn.close()
+    return categories

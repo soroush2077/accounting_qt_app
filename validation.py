@@ -164,7 +164,21 @@ def valid_type(type: str):
         return "Type cannot be empty" 
     
     return "OK"
+
+
+def valid_category(category:str):
     
+    if len(category) == 0:
+        return "Category cannot be empty"
+    
+    elif len(category) > 15:
+        return "Category cannot be longer than 15 characters"
+    
+    elif not category.isalnum():
+        return "Category must be only letters and numbers"
+    
+    else:
+        return "OK"
     
     
     
