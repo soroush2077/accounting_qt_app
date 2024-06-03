@@ -8,6 +8,7 @@ from main_page import Ui_MainPage
 from income import Ui_IncomeWindow
 from expense import Ui_ExpenseWindow
 from categoriy import Ui_Category
+from search import Ui_SearchWindow
 import validation
 import dataBase
 
@@ -162,6 +163,7 @@ class MainPage(QtWidgets.QMainWindow,Ui_MainPage):
         self.pushButton_income.clicked.connect(self.open_income_window)
         self.pushButton_expense.clicked.connect(self.open_expense_window)
         self.pushButton_categories.clicked.connect(self.open_category_window)
+        self.pushButton_search.clicked.connect(self.open_search_window)
         self.pushButton_exit.clicked.connect(exit)
     
     def open_income_window(self):
@@ -177,6 +179,11 @@ class MainPage(QtWidgets.QMainWindow,Ui_MainPage):
     def open_category_window(self):
         self.category_window = Category()
         self.category_window.show()
+        # self.close()
+        
+    def open_search_window(self):
+        self.search_window = SearchWindow()
+        self.search_window.show()
         # self.close()
 
 
@@ -269,19 +276,69 @@ class Category(QtWidgets.QMainWindow,Ui_Category):
             elif result == "Category added succesfuly":
                 self.label_result.setText(result)
                 self.label_result.setStyleSheet("QLabel { color: white; font-weight: bold;}")
+                
+                
+                
+class SearchWindow(QtWidgets.QMainWindow, Ui_SearchWindow):
+    def __init__(self):
+        super(SearchWindow, self).__init__()
+        self.setupUi(self)
+        self.setWindowTitle("Search")
+        self.comboBox_source.addItems([item[0] for item in dataBase.get_categories(user_class.curent_user)])
+        self.pushButton_search.clicked.connect(self.pushButton_search_clicked)
+        
+    def pushButton_search_clicked(self):
+        
+        if validation.valid_search_text(self.lineEdit_search.text()) != "OK":
+            # self.label_error.setText(validation.valid_search_text(self.lineEdit_search.text()))
+            pass
+         
+        else:
+            filters = dict()
+            
+            if self.comboBox_income_or_expense.currentText() == "Income":
+                filters["income_or_expense"] = "income"  
+            elif self.comboBox_income_or_expense.currentText() == "Expense":
+                filters["income_or_expense"] = "expense"
+                
+            if self.radioButton_date.isChecked():
+                filters["date"] = self.dateEdit.text()
+            elif self.radioButton_month.isChecked():
+                filters["month"] = self.lineEdit_month.text()
+            elif self.radioButton_year.isChecked():
+                filters["year"] = self.lineEdit_year.text()
+            
+            if validation.valid_range(int(self.min_amount_spin.value()), int(self.max_amount_spin.value())) == "OK":   
+                filters["amount_range"] = [int(self.min_amount_spin.value()), int(self.max_amount_spin.value())]
 
+                
+            if self.checkBox_description.isChecked():
+                filters["description"] = ""
+                
+            if self.checkBox_type.isChecked():
+                if self.comboBox_type.currentText() != "Select Type":
+                    filters["type"] = self.comboBox_type.currentText()
+                    
+            if self.checkBox_source.isChecked():
+                if self.comboBox_source.currentText() != "Select Source":
+                    filters["source"] = self.comboBox_source.currentText()
+                
+
+            result = dataBase.search(user_class.curent_user, filters)
+            self.populate_table(result)
 
 
 
 class user_class:
-    curent_user=""
+    curent_user = "alireza"
     def set_user(user):
-        user_class.curent_user=user
+        user_class.curent_user = user
+
 
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    main_window = MainWindow()
-    # main_window = Category()
+    # main_window = MainWindow()
+    main_window = SearchWindow()
     main_window.show()
     app.exec()

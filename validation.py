@@ -180,6 +180,20 @@ def valid_category(category:str):
     else:
         return "OK"
     
+
+def valid_search_text(search_text: str):
     
+    # if len(search_text) == 0:
+    #     return "Search text cannot be empty"
+    
+    return "OK"
+
+
+def valid_range(min: int, max: int):
+    
+    if min >= max:
+        return "In amount range min cannot be greater than max"
+    
+    return "OK"
     
     

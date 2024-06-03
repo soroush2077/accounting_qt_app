@@ -16,7 +16,7 @@ class Ui_IncomeWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(400, 600))
         MainWindow.setMaximumSize(QtCore.QSize(400, 600))
         
-        self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
+        self.centralwidget = QtWidgets.QWidget(parent = MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         
         self.lineEdit_income = QtWidgets.QLineEdit(parent=self.centralwidget)
