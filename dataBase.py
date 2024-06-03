@@ -149,3 +149,82 @@ def get_categories(username):
     categories = cursor.fetchall()
     conn.close()
     return categories
+
+
+
+def search(username, filters):
+
+
+    conn = connect_db()
+    
+    cursor = conn.cursor()
+
+
+    query = "SELECT * FROM transactions WHERE username = ?"
+    params = [username]
+
+
+    if 'income_or_expense' in filters:
+        query += " AND income_or_expense = ?"
+        params.append(filters['income_or_expense'])
+
+    if 'date' in filters:
+        query += " AND date = ?"
+        params.append(filters['date'])
+
+    if 'month' in filters:
+        query += " AND strftime('%Y-%m', date) = ?"
+        params.append(filters['month'])
+
+    if 'year' in filters:
+        query += " AND strftime('%Y', date) = ?"
+        params.append(filters['year'])
+
+    if 'amount_range' in filters:
+        query += " AND amount BETWEEN ? AND ?"
+        params.extend(filters['amount_range'])
+
+    if 'description' in filters:
+        query += " AND description LIKE ?"
+        params.append('%' + filters['description'] + '%')
+
+    if 'type' in filters:
+        query += " AND type = ?"
+        params.append(filters['type'])
+
+    if 'source' in filters:
+        query += " AND source = ?"
+        params.append(filters['source'])
+
+
+    cursor.execute(query, params)
+    results = cursor.fetchall()
+
+
+    conn.close()
+    
+    final_results = []
+    for tuple in results:
+        tuple_list = list(tuple)
+        tuple_list.pop(1)
+        final_results.append(tuple_list)
+
+    return final_results
+
+
+
+if __name__ == "__main__":
+    
+    # example for test
+    filters = {
+        # 'income_or_expense': 'income',
+        # 'year': '2000',
+        # 'description': 'for'
+    }
+    transactions = search('alireza', filters)
+    # print(transactions)
+    for transaction in transactions:
+        print(transaction)
+        
+        
+
