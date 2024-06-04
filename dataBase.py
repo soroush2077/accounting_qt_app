@@ -212,19 +212,42 @@ def search(username, filters):
     return final_results
 
 
-
-if __name__ == "__main__":
+def edit_account(username, updates:dict):
     
-    # example for test
-    filters = {
-        # 'income_or_expense': 'income',
-        # 'year': '2000',
-        # 'description': 'for'
-    }
-    transactions = search('alireza', filters)
-    # print(transactions)
-    for transaction in transactions:
-        print(transaction)
+    if not updates:
+        return "You should at least change one item"
+    
+    conn = connect_db()
+    cursor = conn.cursor()
+    
+    temp = [f"{key} = ?" for key in updates.keys()]
+    set_query = ", ".join(temp)
+    final_query = f" UPDATE accounts set {set_query} WHERE username = ?"
+    values = list(updates.values()) + [username]
+    
+    cursor.execute(final_query, values)
+    
+    conn.commit()
+    conn.close()
+    
+    return "Update succesful"
+        
+
+
+
+
+# if __name__ == "__main__":
+    
+#     # example for test
+#     filters = {
+#         # 'income_or_expense': 'income',
+#         # 'year': '2000',
+#         # 'description': 'for'
+#     }
+#     transactions = search('alireza', filters)
+#     # print(transactions)
+#     for transaction in transactions:
+#         print(transaction)
         
         
 

@@ -111,7 +111,7 @@ def valid_security_answer(answer: str) -> str:
 
 
 def valid_city(city: str) -> str:
-    if len(city) == 0:
+    if len(city) == 0 or city == "City":
         return "City cannot be empty"
     return "OK"
 

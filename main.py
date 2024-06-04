@@ -9,6 +9,7 @@ from income import Ui_IncomeWindow
 from expense import Ui_ExpenseWindow
 from categoriy import Ui_Category
 from search import Ui_SearchWindow
+from settings import Ui_Setting
 import validation
 import dataBase
 
@@ -16,10 +17,10 @@ import dataBase
 
 
 
-class MainWindow(QtWidgets.QMainWindow,Ui_StartUpWindow):
+class StartWindow(QtWidgets.QMainWindow,Ui_StartUpWindow):
     
     def __init__(self):
-        super(MainWindow, self).__init__()
+        super(StartWindow, self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Login or Sign Up")
         self.pushButton_signup.clicked.connect(self.open_signup_window)
@@ -113,7 +114,7 @@ class LoginWindow(QtWidgets.QMainWindow,Ui_LoginWindow):
             self.label_error.setStyleSheet("QLabel { color: white; font-weight: bold;}")
             self.label_error.setText("You have successfully logged in\nYou will be redirected to the main page in 5 seconds")
             user_class.set_user(self.lineEdit_username.text())
-            QtCore.QTimer.singleShot(5000, self.open_main_page)
+            QtCore.QTimer.singleShot(500, self.open_main_page)
             
         else:
             self.label_error.setText(f"{result}")        
@@ -164,6 +165,7 @@ class MainPage(QtWidgets.QMainWindow,Ui_MainPage):
         self.pushButton_expense.clicked.connect(self.open_expense_window)
         self.pushButton_categories.clicked.connect(self.open_category_window)
         self.pushButton_search.clicked.connect(self.open_search_window)
+        self.pushButton_settings.clicked.connect(self.open_settings_window)
         self.pushButton_exit.clicked.connect(exit)
     
     def open_income_window(self):
@@ -185,6 +187,10 @@ class MainPage(QtWidgets.QMainWindow,Ui_MainPage):
         self.search_window = SearchWindow()
         self.search_window.show()
         # self.close()
+    
+    def open_settings_window(self):
+        self.settings_window = SettingWindow()
+        self.settings_window.show()
 
 
 class IncomeWindow(QtWidgets.QMainWindow,Ui_IncomeWindow):
@@ -329,8 +335,62 @@ class SearchWindow(QtWidgets.QMainWindow, Ui_SearchWindow):
 
 
 
+class SettingWindow(QtWidgets.QMainWindow, Ui_Setting):
+    
+    def __init__(self):
+        super(SettingWindow, self).__init__()
+        self.setupUi(self)
+        self.setWindowTitle("Settings")
+        self.pushButton_editprofile.clicked.connect(self.edit_profile)
+        self.pushButton_deleteAcount.clicked.connect(self.delete_account)
+        self.pushButton_all_trans.clicked.connect(self.delete_all_trans)
+        self.pushButton_expense_trans.clicked.connect(self.delete_expense_trans)
+        self.pushButton_income_trans.clicked.connect(self.delete_income_trans)
+    
+    def edit_profile(self):
+        
+        updates=dict()
+        
+        if validation.valid_first_name(self.lineEdit_firstname.text()) == "OK":
+            updates["first_name"] = self.lineEdit_firstname.text()
+        
+        if validation.valid_last_name(self.lineEdit_lastname.text()) == "OK":
+            updates["last_name"] = self.lineEdit_lastname.text()
+        
+        if validation.valid_phone_number(self.lineEdit_phonenumber.text()) == "OK":
+            updates["phone_number"] = self.lineEdit_phonenumber.text()
+        
+        if validation.valid_password(self.lineEdit_password.text()) == "Ok":
+            updates["password"] = self.lineEdit_password.text()
+        
+        if validation.valid_security_answer(self.lineEdit_security_answer.text()) == "OK":
+            updates["security_answer"] = self.lineEdit_security_answer.text()
+        
+        if validation.valid_city(self.comboBox.currentText()) == "OK":
+            updates["city"] = self.comboBox.currentText()
+        
+        if (validation.valid_birth_date(self.date.text()) == "OK") and self.date.text() != "2000-01-01":
+            updates["birth_date"] = self.date.text()
+            
+        result = dataBase.edit_account(user_class.curent_user, updates)
+        self.label_result.setText(result)
+    
+    def delete_account(self):
+        pass
+    
+    def delete_income_trans(self):
+        pass
+    
+    def delete_expense_trans(self):
+        pass
+    
+    def delete_all_trans(self):
+        self.delete_income_trans()
+        self.delete_expense_trans()
+
+
 class user_class:
-    curent_user = "alireza"
+    curent_user = None
     def set_user(user):
         user_class.curent_user = user
 
@@ -338,7 +398,6 @@ class user_class:
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    # main_window = MainWindow()
-    main_window = SearchWindow()
+    main_window = StartWindow()
     main_window.show()
     app.exec()
