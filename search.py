@@ -11,9 +11,9 @@ class Ui_SearchWindow(QWidget):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1000, 600)
-        MainWindow.setMinimumSize(QSize(1000, 600))
-        MainWindow.setMaximumSize(QSize(1000, 600))
+        MainWindow.resize(600, 600)
+        MainWindow.setMinimumSize(QSize(600, 600))
+        MainWindow.setMaximumSize(QSize(600, 600))
         self.centralwidget = QWidget(parent = MainWindow)
         wid = QWidget(self)
         self.setCentralWidget(wid)
@@ -103,12 +103,14 @@ class Ui_SearchWindow(QWidget):
 
         # Type
         self.checkBox_type = QCheckBox("Include Type in Search")
+        self.checkBox_type.toggled.connect(self.toggle_type)
+        
         self.comboBox_type = QComboBox()
         self.comboBox_type.addItem("Select Type", "")
         self.comboBox_type.addItem("Check")
         self.comboBox_type.addItem("Cash")
         self.comboBox_type.addItem("Digital Currency")
-        # self.comboBox_type.setEnabled(False)
+        self.comboBox_type.setEnabled(False)
         layout.addWidget(self.checkBox_type)
         layout.addWidget(self.comboBox_type)
 
@@ -139,7 +141,9 @@ class Ui_SearchWindow(QWidget):
         self.lineEdit_month.setEnabled(self.radioButton_month.isChecked())
         self.lineEdit_year.setEnabled(self.radioButton_year.isChecked())
 
-
+    def toggle_type(self):
+        self.comboBox_type.setEnabled(self.checkBox_type.isChecked())
+    
     def populate_table(self, data):
         self.results_table.setRowCount(len(data))
         for row_idx, row_data in enumerate(data):
