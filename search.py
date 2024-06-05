@@ -11,9 +11,9 @@ class Ui_SearchWindow(QWidget):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(620, 600)
-        MainWindow.setMinimumSize(QSize(620, 600))
-        MainWindow.setMaximumSize(QSize(620, 600))
+        MainWindow.resize(620, 700)
+        MainWindow.setMinimumSize(QSize(620, 700))
+        MainWindow.setMaximumSize(QSize(620, 700))
         self.centralwidget = QWidget(parent = MainWindow)
         wid = QWidget(self)
         self.setCentralWidget(wid)
@@ -104,26 +104,26 @@ class Ui_SearchWindow(QWidget):
 
         # Type
         self.checkBox_type = QCheckBox("Include Type in Search")
-        self.checkBox_type.toggled.connect(self.toggle_type)
+        # self.checkBox_type.toggled.connect(self.toggle_type)
         
-        self.comboBox_type = QComboBox()
-        self.comboBox_type.addItem("Select Type", "")
-        self.comboBox_type.addItem("Check")
-        self.comboBox_type.addItem("Cash")
-        self.comboBox_type.addItem("Digital Currency")
-        self.comboBox_type.setEnabled(False)
+        # self.comboBox_type = QComboBox()
+        # self.comboBox_type.addItem("Select Type", "")
+        # self.comboBox_type.addItem("Check")
+        # self.comboBox_type.addItem("Cash")
+        # self.comboBox_type.addItem("Digital Currency")
+        # self.comboBox_type.setEnabled(False)
         layout.addWidget(self.checkBox_type)
-        layout.addWidget(self.comboBox_type)
+        # layout.addWidget(self.comboBox_type)
 
         # Source
         self.checkBox_source = QCheckBox("Include Source in Search")
-        self.checkBox_source.toggled.connect(self.toggle_source)
+        # self.checkBox_source.toggled.connect(self.toggle_source)
         
-        self.comboBox_source = QComboBox()
-        self.comboBox_source.addItem("Select Source", "")
-        self.comboBox_source.setEnabled(False)
+        # self.comboBox_source = QComboBox()
+        # self.comboBox_source.addItem("Select Source", "")
+        # self.comboBox_source.setEnabled(False)
         layout.addWidget(self.checkBox_source)
-        layout.addWidget(self.comboBox_source)
+        # layout.addWidget(self.comboBox_source)
 
 
         # Search Button
@@ -147,11 +147,11 @@ class Ui_SearchWindow(QWidget):
         self.lineEdit_month.setEnabled(self.radioButton_month.isChecked())
         self.lineEdit_year.setEnabled(self.radioButton_year.isChecked())
 
-    def toggle_type(self):
-        self.comboBox_type.setEnabled(self.checkBox_type.isChecked())
+    # def toggle_type(self):
+    #     self.comboBox_type.setEnabled(self.checkBox_type.isChecked())
         
-    def toggle_source(self):
-        self.comboBox_source.setEnabled(self.checkBox_source.isChecked())
+    # def toggle_source(self):
+    #     self.comboBox_source.setEnabled(self.checkBox_source.isChecked())
     
     def populate_table(self, data):
         self.results_table.setRowCount(len(data))

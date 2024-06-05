@@ -10,9 +10,9 @@ class Ui_ReportWindow(QWidget):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(620, 600)
-        MainWindow.setMinimumSize(QSize(620, 600))
-        MainWindow.setMaximumSize(QSize(620, 600))
+        MainWindow.resize(620, 700)
+        MainWindow.setMinimumSize(QSize(620, 700))
+        MainWindow.setMaximumSize(QSize(620, 700))
         self.centralwidget = QWidget(MainWindow)
         wid = QWidget(self)
         self.setCentralWidget(wid)
@@ -121,7 +121,7 @@ class Ui_ReportWindow(QWidget):
         layout.addLayout(amount_layout)
 
         # Type
-        self.checkBox_type = QCheckBox("Include Type in Search")
+        self.checkBox_type = QCheckBox("Include Type in Report")
         self.checkBox_type.toggled.connect(self.toggle_type)
         
         self.comboBox_type = QComboBox()
@@ -134,7 +134,7 @@ class Ui_ReportWindow(QWidget):
         layout.addWidget(self.comboBox_type)
 
         # Source
-        self.checkBox_source = QCheckBox("Include Source in Search")
+        self.checkBox_source = QCheckBox("Include Source in Report")
         self.checkBox_source.toggled.connect(self.toggle_source)
         
         self.comboBox_source = QComboBox()

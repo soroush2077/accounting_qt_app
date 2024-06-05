@@ -156,8 +156,23 @@ def search(username: str, search_text: str, filters: dict):
     conn = connect_db()
     cursor = conn.cursor()
 
-    query = "SELECT * FROM transactions WHERE username = ?"
-    params = [username]
+    
+    if 'search' in filters:
+
+        search_term = '%' + search_text + '%'
+        query = """
+        SELECT * FROM transactions
+        WHERE username = ?
+        AND (
+            description LIKE ? OR
+            type LIKE ? OR
+            source LIKE ? OR
+            income_or_expense LIKE ? OR
+            date LIKE ?
+        )
+        """
+        params = [username]
+        params.extend([search_term] * 5)
 
 
     if 'income_or_expense' in filters:
@@ -186,16 +201,19 @@ def search(username: str, search_text: str, filters: dict):
 
     if 'type' in filters:
         query += " AND type = ?"
-        params.append(filters['type'])
+        params.append('%' + search_text + '%')
 
     if 'source' in filters:
         query += " AND source = ?"
-        params.append(filters['source'])
+        params.append('%' + search_text + '%')
 
 
-    if 'search' not in filters:
+    if 'search' in filters and len(filters) == 1:
+
         search_term = '%' + search_text + '%'
-        query += """
+        query = """
+        SELECT * FROM transactions
+        WHERE username = ?
         AND (
             description LIKE ? OR
             type LIKE ? OR
@@ -204,7 +222,10 @@ def search(username: str, search_text: str, filters: dict):
             date LIKE ?
         )
         """
+        params = [username]
         params.extend([search_term] * 5)
+        
+    
 
     cursor.execute(query, params)
     results = cursor.fetchall()

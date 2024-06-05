@@ -296,7 +296,7 @@ class SearchWindow(QtWidgets.QMainWindow, Ui_SearchWindow):
         super(SearchWindow, self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Search")
-        self.comboBox_source.addItems([item[0] for item in dataBase.get_categories(user_class.curent_user)])
+        # self.comboBox_source.addItems([item[0] for item in dataBase.get_categories(user_class.curent_user)])
         self.pushButton_search.clicked.connect(self.pushButton_search_clicked)
         
     def pushButton_search_clicked(self):
@@ -304,11 +304,12 @@ class SearchWindow(QtWidgets.QMainWindow, Ui_SearchWindow):
         if validation.valid_search_text(self.lineEdit_search.text()) != "OK":
             self.label_error.setStyleSheet("QLabel { color: red; font-weight: bold; font-style: italic; }")
             self.label_error.setText(validation.valid_search_text(self.lineEdit_search.text()))
+        
 
          
         else:
-            
-            filters = {}
+            self.label_error.setText("")
+            filters = {'search': self.lineEdit_search.text()}    
         
             
             if self.comboBox_income_or_expense.currentText() == "Income":
@@ -331,15 +332,13 @@ class SearchWindow(QtWidgets.QMainWindow, Ui_SearchWindow):
                 filters["description"] = ""
                 
             if self.checkBox_type.isChecked():
-                if self.comboBox_type.currentText() != "Select Type":
-                    filters["type"] = self.comboBox_type.currentText()
+                # if self.comboBox_type.currentText() != "Select Type":
+                    filters["type"] = ""
                     
             if self.checkBox_source.isChecked():
-                if self.comboBox_source.currentText() != "Select Source":
-                    filters["source"] = self.comboBox_source.currentText()
+                # if self.comboBox_source.currentText() != "Select Source":
+                    filters["source"] = ""
                 
-            if filters == {}:
-                filters = {'search': self.lineEdit_search.text()}    
                 
             result = dataBase.search(user_class.curent_user, self.lineEdit_search.text(), filters)
             self.populate_table(result)
@@ -465,7 +464,7 @@ if __name__ == "__main__":
     # main_window = StartWindow()
     # main_window = IncomeWindow()
     # main_window = ExpenseWindow()
-    # main_window = SearchWindow()
-    main_window = ReportWindow()
+    main_window = SearchWindow()
+    # main_window = ReportWindow()
     main_window.show()
     app.exec()
