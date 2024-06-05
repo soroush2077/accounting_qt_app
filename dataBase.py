@@ -112,7 +112,7 @@ def add_transaction(username, income_or_expense, amount, date, source, type, des
     conn.close()
 
 
-def add_category(username, category):
+def add_category(username: str, category):
     
     conn = connect_db()
     
@@ -124,7 +124,7 @@ def add_category(username, category):
 
     query = "SELECT category FROM categories WHERE username = ?"
     cursor.execute(query, (username,))
-    user_category=cursor.fetchall()
+    user_category = cursor.fetchall()
     
 
     for item in user_category:    
@@ -138,7 +138,7 @@ def add_category(username, category):
         conn.close()
         return "Category added succesfuly"
     
-def get_categories(username):
+def get_categories(username: str):
     
     conn= connect_db()
     
@@ -152,7 +152,75 @@ def get_categories(username):
 
 
 
-def search(username, filters):
+def search(username: str, search_text: str, filters: dict):
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    query = "SELECT * FROM transactions WHERE username = ?"
+    params = [username]
+
+
+    if 'income_or_expense' in filters:
+        query += " AND income_or_expense = ?"
+        params.append(filters['income_or_expense'])
+
+    if 'date' in filters:
+        query += " AND date = ?"
+        params.append(filters['date'])
+
+    elif 'month' in filters:
+        query += " AND strftime('%Y-%m', date) = ?"
+        params.append(filters['month'])
+
+    elif 'year' in filters:
+        query += " AND strftime('%Y', date) = ?"
+        params.append(filters['year'])
+        
+    if 'amount_range' in filters:
+        query += " AND amount BETWEEN ? AND ?"
+        params.extend(filters['amount_range'])
+
+    if 'description' in filters:
+        query += " AND description LIKE ?"
+        params.append('%' + search_text + '%')
+
+    if 'type' in filters:
+        query += " AND type = ?"
+        params.append(filters['type'])
+
+    if 'source' in filters:
+        query += " AND source = ?"
+        params.append(filters['source'])
+
+
+    if 'search' not in filters:
+        search_term = '%' + search_text + '%'
+        query += """
+        AND (
+            description LIKE ? OR
+            type LIKE ? OR
+            source LIKE ? OR
+            income_or_expense LIKE ? OR
+            date LIKE ?
+        )
+        """
+        params.extend([search_term] * 5)
+
+    cursor.execute(query, params)
+    results = cursor.fetchall()
+
+    conn.close()
+
+    final_results = []
+    for record in results:
+        record_list = list(record)
+        record_list.pop(1)
+        final_results.append(record_list)
+
+    return final_results
+
+
+def report(username: str, filters: dict):
 
 
     conn = connect_db()
@@ -172,13 +240,24 @@ def search(username, filters):
         query += " AND date = ?"
         params.append(filters['date'])
 
-    if 'month' in filters:
+    elif 'month' in filters:
         query += " AND strftime('%Y-%m', date) = ?"
         params.append(filters['month'])
 
-    if 'year' in filters:
+    elif 'year' in filters:
         query += " AND strftime('%Y', date) = ?"
         params.append(filters['year'])
+        
+    elif 'last_day' in filters:
+        query += " AND date >= DATE('now', '-1 day')"
+    
+    elif 'last_three_days' in filters:
+        query += " AND date >= DATE('now', '-3 days')"    
+        
+    elif 'date_range' in filters:
+        query += "AND date BETWEEN ? AND ?"
+        params.extend(filters['date_range'])
+
 
     if 'amount_range' in filters:
         query += " AND amount BETWEEN ? AND ?"
@@ -212,7 +291,35 @@ def search(username, filters):
     return final_results
 
 
-def edit_account(username, updates:dict):
+def total(username: str, income_or_expense: str):
+    
+    conn = connect_db()
+    
+    cursor = conn.cursor()
+
+
+    query = "SELECT amount FROM transactions WHERE username = ? AND income_or_expense = ?"
+    params = [username, income_or_expense]
+    cursor.execute(query, params)
+    results = cursor.fetchall()
+    
+    total = 0
+    for item in results:
+        total += item[0]
+        
+    return total
+
+
+def results_total(results: list):
+    total = 0
+    for item in results:
+        total += item[1]  # amount
+        
+    return total
+
+
+
+def edit_account(username, updates: dict):
     
     if not updates:
         return "You should at least change one item"
@@ -231,23 +338,15 @@ def edit_account(username, updates:dict):
     conn.close()
     
     return "Update succesful"
-        
 
 
 
-
-# if __name__ == "__main__":
+if __name__ == "__main__":
+    # filters = {
+    #     'date_range': ['2000-06-06', '2004-06-06']
+    # }
+    # print(report("alireza", filters))
+    # print(total("alireza", "expense"))
+    # report("alireza", {})
+    pass
     
-#     # example for test
-#     filters = {
-#         # 'income_or_expense': 'income',
-#         # 'year': '2000',
-#         # 'description': 'for'
-#     }
-#     transactions = search('alireza', filters)
-#     # print(transactions)
-#     for transaction in transactions:
-#         print(transaction)
-        
-        
-

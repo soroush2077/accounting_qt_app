@@ -9,6 +9,7 @@ from income import Ui_IncomeWindow
 from expense import Ui_ExpenseWindow
 from categoriy import Ui_Category
 from search import Ui_SearchWindow
+from report import Ui_ReportWindow
 from settings import Ui_Setting
 import validation
 import dataBase
@@ -187,6 +188,11 @@ class MainPage(QtWidgets.QMainWindow,Ui_MainPage):
         self.search_window = SearchWindow()
         self.search_window.show()
         # self.close()
+        
+    def open_report_window(self):
+        self.report_window = ReportWindow()
+        self.report_window.show()
+        # self.close()
     
     def open_settings_window(self):
         self.settings_window = SettingWindow()
@@ -296,11 +302,14 @@ class SearchWindow(QtWidgets.QMainWindow, Ui_SearchWindow):
     def pushButton_search_clicked(self):
         
         if validation.valid_search_text(self.lineEdit_search.text()) != "OK":
-            # self.label_error.setText(validation.valid_search_text(self.lineEdit_search.text()))
-            pass
+            self.label_error.setStyleSheet("QLabel { color: red; font-weight: bold; font-style: italic; }")
+            self.label_error.setText(validation.valid_search_text(self.lineEdit_search.text()))
+
          
         else:
-            filters = dict()
+            
+            filters = {}
+        
             
             if self.comboBox_income_or_expense.currentText() == "Income":
                 filters["income_or_expense"] = "income"  
@@ -329,10 +338,64 @@ class SearchWindow(QtWidgets.QMainWindow, Ui_SearchWindow):
                 if self.comboBox_source.currentText() != "Select Source":
                     filters["source"] = self.comboBox_source.currentText()
                 
-
-            result = dataBase.search(user_class.curent_user, filters)
+            if filters == {}:
+                filters = {'search': self.lineEdit_search.text()}    
+                
+            result = dataBase.search(user_class.curent_user, self.lineEdit_search.text(), filters)
             self.populate_table(result)
 
+
+
+class ReportWindow(QtWidgets.QMainWindow, Ui_ReportWindow):
+    def __init__(self):
+        super(ReportWindow, self).__init__()
+        self.setupUi(self)
+        self.setWindowTitle("Report")
+        self.comboBox_source.addItems([item[0] for item in dataBase.get_categories(user_class.curent_user)])
+        self.pushButton_report.clicked.connect(self.pushButton_report_clicked)
+        
+    def pushButton_report_clicked(self):
+        
+        filters = dict()
+        
+        if self.comboBox_income_or_expense.currentText() == "Income":
+            filters["income_or_expense"] = "income"  
+        elif self.comboBox_income_or_expense.currentText() == "Expense":
+            filters["income_or_expense"] = "expense"
+            
+        if self.radioButton_date.isChecked():
+            filters["date"] = self.dateEdit.text()
+        elif self.radioButton_month.isChecked():
+            filters["month"] = self.lineEdit_month.text()
+        elif self.radioButton_year.isChecked():
+            filters["year"] = self.lineEdit_year.text()
+        elif self.radioButton_last_day.isChecked():
+            filters["last_day"] = ""
+        elif self.radioButton_last_three_days.isChecked():
+            filters["last_three_days"] = ""
+        elif self.radioButton_date_range.isChecked():
+            filters["date_range"] = [self.dateRange_start.text(), self.dateRange_end.text()]
+        
+        if validation.valid_range(int(self.min_amount_spin.value()), int(self.max_amount_spin.value())) == "OK":   
+            filters["amount_range"] = [int(self.min_amount_spin.value()), int(self.max_amount_spin.value())]
+            
+        if self.checkBox_type.isChecked():
+            if self.comboBox_type.currentText() != "Select Type":
+                filters["type"] = self.comboBox_type.currentText()
+                
+        if self.checkBox_source.isChecked():
+            if self.comboBox_source.currentText() != "Select Source":
+                filters["source"] = self.comboBox_source.currentText()
+            
+
+        result = dataBase.report(user_class.curent_user, filters)
+        self.populate_table(result)
+        self.label_total.setText(f"Total in this filters = {dataBase.results_total(result)}")
+        try:
+            self.label_division.setText(f"Division =\
+            {round(dataBase.results_total(result) / dataBase.total(user_class.curent_user, self.comboBox_income_or_expense.currentText().lower()), 2)}")
+        except ZeroDivisionError:
+            self.label_division.setText("Division = 0")
 
 
 class SettingWindow(QtWidgets.QMainWindow, Ui_Setting):
@@ -347,9 +410,10 @@ class SettingWindow(QtWidgets.QMainWindow, Ui_Setting):
         self.pushButton_expense_trans.clicked.connect(self.delete_expense_trans)
         self.pushButton_income_trans.clicked.connect(self.delete_income_trans)
     
+    
     def edit_profile(self):
         
-        updates=dict()
+        updates = dict()
         
         if validation.valid_first_name(self.lineEdit_firstname.text()) == "OK":
             updates["first_name"] = self.lineEdit_firstname.text()
@@ -390,7 +454,7 @@ class SettingWindow(QtWidgets.QMainWindow, Ui_Setting):
 
 
 class user_class:
-    curent_user = None
+    curent_user = "alireza"
     def set_user(user):
         user_class.curent_user = user
 
@@ -398,6 +462,10 @@ class user_class:
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    main_window = StartWindow()
+    # main_window = StartWindow()
+    # main_window = IncomeWindow()
+    # main_window = ExpenseWindow()
+    # main_window = SearchWindow()
+    main_window = ReportWindow()
     main_window.show()
     app.exec()

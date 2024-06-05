@@ -28,6 +28,7 @@ class Ui_ExpenseWindow(object):
         self.dateEdit_date = QtWidgets.QDateEdit(parent = self.centralwidget)
         self.dateEdit_date.setCalendarPopup(True)
         self.dateEdit_date.setDisplayFormat("yyyy-MM-dd")
+        self.dateEdit_date.setDate(QtCore.QDate.currentDate())
         self.dateEdit_date.setGeometry(QtCore.QRect(100, 120, 200, 30))
         self.dateEdit_date.setObjectName("dateEdit_date")
         

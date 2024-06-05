@@ -11,9 +11,9 @@ class Ui_SearchWindow(QWidget):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(600, 600)
-        MainWindow.setMinimumSize(QSize(600, 600))
-        MainWindow.setMaximumSize(QSize(600, 600))
+        MainWindow.resize(620, 600)
+        MainWindow.setMinimumSize(QSize(620, 600))
+        MainWindow.setMaximumSize(QSize(620, 600))
         self.centralwidget = QWidget(parent = MainWindow)
         wid = QWidget(self)
         self.setCentralWidget(wid)
@@ -44,6 +44,7 @@ class Ui_SearchWindow(QWidget):
         
         self.dateEdit = QDateEdit()
         self.dateEdit.setCalendarPopup(True)
+        self.dateEdit.setDisplayFormat("yyyy-MM-dd")
         self.dateEdit.setDate(QDate.currentDate())
         
         self.lineEdit_month = QLineEdit()
@@ -116,17 +117,22 @@ class Ui_SearchWindow(QWidget):
 
         # Source
         self.checkBox_source = QCheckBox("Include Source in Search")
+        self.checkBox_source.toggled.connect(self.toggle_source)
+        
         self.comboBox_source = QComboBox()
         self.comboBox_source.addItem("Select Source", "")
-        # self.comboBox_source.setEnabled(False)
+        self.comboBox_source.setEnabled(False)
         layout.addWidget(self.checkBox_source)
         layout.addWidget(self.comboBox_source)
-
 
 
         # Search Button
         self.pushButton_search = QPushButton("Search")
         layout.addWidget(self.pushButton_search)
+        
+        # Error label
+        self.label_error = QLabel()
+        layout.addWidget(self.label_error)
 
         # Search Results Table
         self.results_table = QTableWidget()
@@ -143,18 +149,12 @@ class Ui_SearchWindow(QWidget):
 
     def toggle_type(self):
         self.comboBox_type.setEnabled(self.checkBox_type.isChecked())
+        
+    def toggle_source(self):
+        self.comboBox_source.setEnabled(self.checkBox_source.isChecked())
     
     def populate_table(self, data):
         self.results_table.setRowCount(len(data))
         for row_idx, row_data in enumerate(data):
             for col_idx, item in enumerate(row_data):
                 self.results_table.setItem(row_idx, col_idx, QTableWidgetItem(str(item)))
-
-def main():
-    app = QApplication(sys.argv)
-    form = Ui_SearchWindow()
-    form.show()
-    sys.exit(app.exec())
-
-if __name__ == "__main__":
-    main()
