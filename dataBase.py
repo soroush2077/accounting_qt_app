@@ -361,6 +361,39 @@ def edit_account(username, updates: dict):
     return "Update succesful"
 
 
+def delete_user(username):
+    
+    conn = connect_db()
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM accounts WHERE username = ?" , [username])
+    cursor.execute("DELETE FROM transactions WHERE username = ?", [username])
+    cursor.execute("DELETE FROM categories WHERE username = ?", [username])
+    
+    conn.commit()
+    conn.close()
+    
+def delete_income(username):
+    
+    conn = connect_db()
+    cursor = conn.cursor()
+    
+    cursor.execute("DELETE FROM transactions WHERE username = ? AND income_or_expense = ?", [username, "income"])
+
+    conn.commit()
+    conn.close()
+    
+
+def delete_expense(username):
+
+    conn = connect_db()
+    cursor = conn.cursor()
+    
+    cursor.execute("DELETE FROM transactions WHERE username = ? AND income_or_expense = ?", [username, "expense"])
+
+    conn.commit()
+    conn.close()    
+    
 
 if __name__ == "__main__":
     # filters = {

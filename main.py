@@ -115,7 +115,7 @@ class LoginWindow(QtWidgets.QMainWindow,Ui_LoginWindow):
             self.label_error.setStyleSheet("QLabel { color: white; font-weight: bold;}")
             self.label_error.setText("You have successfully logged in\nYou will be redirected to the main page in 5 seconds")
             user_class.set_user(self.lineEdit_username.text())
-            QtCore.QTimer.singleShot(500, self.open_main_page)
+            QtCore.QTimer.singleShot(5000, self.open_main_page)
             
         else:
             self.label_error.setText(f"{result}")        
@@ -166,6 +166,7 @@ class MainPage(QtWidgets.QMainWindow,Ui_MainPage):
         self.pushButton_expense.clicked.connect(self.open_expense_window)
         self.pushButton_categories.clicked.connect(self.open_category_window)
         self.pushButton_search.clicked.connect(self.open_search_window)
+        self.pushButton_reports.clicked.connect(self.open_report_window)
         self.pushButton_settings.clicked.connect(self.open_settings_window)
         self.pushButton_exit.clicked.connect(exit)
     
@@ -214,13 +215,13 @@ class IncomeWindow(QtWidgets.QMainWindow,Ui_IncomeWindow):
             self.label_error.setText(validation.valid_amount(self.lineEdit_income.text()))
             
         elif validation.valid_source(self.comboBox_source.currentText()) != "OK":
-            self.label_error.setText(validation.valid_source(self.lineEdit_source.text()))    
+            self.label_error.setText(validation.valid_source(self.comboBox_source.text()))    
             
         elif validation.valid_date(self.dateEdit_date.text()) != "OK":
             self.label_error.setText(validation.valid_date(self.dateEdit_date.text()))
             
         elif validation.valid_type(self.comboBox_type.currentText()) != "OK":
-            self.label_error.setText(validation.valid_type(self.comboBox.currentText()))
+            self.label_error.setText(validation.valid_type(self.comboBox_type.currentText()))
             
         else:
             dataBase.add_transaction(user_class.curent_user, "income", self.lineEdit_income.text(),\
@@ -247,7 +248,7 @@ class ExpenseWindow(QtWidgets.QMainWindow,Ui_ExpenseWindow):
             self.label_error.setText(validation.valid_amount(self.lineEdit_expense.text()))
             
         elif validation.valid_source(self.comboBox_source.currentText()) != "OK":
-            self.label_error.setText(validation.valid_source(self.lineEdit_source.text()))    
+            self.label_error.setText(validation.valid_source(self.comboBox_source.text()))    
             
         elif validation.valid_date(self.dateEdit_date.text()) != "OK":
             self.label_error.setText(validation.valid_date(self.dateEdit_date.text()))
@@ -439,21 +440,24 @@ class SettingWindow(QtWidgets.QMainWindow, Ui_Setting):
         self.label_result.setText(result)
     
     def delete_account(self):
-        pass
+        dataBase.delete_user(user_class.curent_user)
+        self.label_result.setText("User deleted\nGood Bye")
+        QtCore.QTimer.singleShot(2000, exit)
     
     def delete_income_trans(self):
-        pass
+        dataBase.delete_income(user_class.curent_user)
+        self.label_result.setText("All income transactions deleted")
     
     def delete_expense_trans(self):
-        pass
-    
+        dataBase.delete_expense(user_class.curent_user)
+        self.label_result.setText("All expense transaction deleted")
     def delete_all_trans(self):
         self.delete_income_trans()
         self.delete_expense_trans()
-
+        self.label_result.setText("All transactions deleted")
 
 class user_class:
-    curent_user = "alireza"
+    curent_user = ""
     def set_user(user):
         user_class.curent_user = user
 
@@ -461,10 +465,6 @@ class user_class:
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    # main_window = StartWindow()
-    # main_window = IncomeWindow()
-    # main_window = ExpenseWindow()
-    main_window = SearchWindow()
-    # main_window = ReportWindow()
+    main_window = StartWindow()
     main_window.show()
     app.exec()

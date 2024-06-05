@@ -136,7 +136,7 @@ class Ui_SearchWindow(QWidget):
 
         # Search Results Table
         self.results_table = QTableWidget()
-        self.results_table.setColumnCount(7)
+        self.results_table.setColumnCount(6)
         self.results_table.setHorizontalHeaderLabels(["Income/Expense", "Amount", "Date", "Source", "Description", "Type"])
         layout.addWidget(self.results_table)
         wid.setLayout(layout)
