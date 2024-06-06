@@ -84,12 +84,12 @@ class SignUpWindow(QtWidgets.QMainWindow, Ui_SignUpWindow):
             result = dataBase.add_account(self.lineEdit.text(), self.lineEdit_2.text(), self.lineEdit_3.text(), self.lineEdit_4.text(),\
                 self.lineEdit_5.text(), self.lineEdit_7.text(), self.lineEdit_8.text(), self.comboBox.currentText(), self.date.text())
             
-            if result == "sign up completed":
+            if result == "Sign up completed":
                 self.label_error.setStyleSheet("QLabel { color: white; font-weight: bold;}")
                 self.label_error.setText("sign up completed\nyou will be redirected to the login page")
                 QtCore.QTimer.singleShot(5000, self.open_login_window)
                 
-            elif result == "email and username must be unique":
+            elif result == "Email and username must be unique":
                 self.label_error.setText(f"{result}")
                 
     def open_login_window(self):

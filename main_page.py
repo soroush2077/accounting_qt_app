@@ -77,9 +77,9 @@ class Ui_MainPage(object):
         
         self.label_head.setText(_translate("MainWindow", "To be determined"))
         
-        self.pushButton_income.setText(_translate("MainWindow", "income"))
-        self.pushButton_expense.setText(_translate("MainWindow", "expense"))
-        self.pushButton_categories.setText(_translate("MainWindow", "categories"))
+        self.pushButton_income.setText(_translate("MainWindow", "Income"))
+        self.pushButton_expense.setText(_translate("MainWindow", "Expense"))
+        self.pushButton_categories.setText(_translate("MainWindow", "Categories"))
         self.pushButton_search.setText(_translate("MainWindow", "Search"))
         self.pushButton_reports.setText(_translate("MainWindow", "Reports"))
         self.pushButton_settings.setText(_translate("MainWindow", "Setting"))
