@@ -30,7 +30,7 @@ def add_account(first_name: str, last_name: str, phone_number: str, username: st
                         """)
         
         cursor.execute("INSERT INTO accounts(first_name, last_name, phone_number, username, password, email, security_answer, city, birth_date) \
-            VALUES ( ?, ? ,? ,? ,? ,? ,? ,? ,?);", [first_name, last_name, phone_number, username, password, email, security_answer, city, birthdate]).
+            VALUES ( ?, ? ,? ,? ,? ,? ,? ,? ,?);", [first_name, last_name, phone_number, username, password, email, security_answer, city, birthdate])
         
         conn.commit()
         conn.close()
@@ -225,22 +225,22 @@ def search(username: str, search_text: str, filters: dict):
         params.append('%' + search_text + '%')
 
 
-    if 'search' in filters and len(filters) == 1:
+    # if 'search' in filters and len(filters) == 1:
 
-        search_term = '%' + search_text + '%'
-        query = """
-        SELECT * FROM transactions
-        WHERE username = ?
-        AND (
-            description LIKE ? OR
-            type LIKE ? OR
-            source LIKE ? OR
-            income_or_expense LIKE ? OR
-            date LIKE ?
-        )
-        """
-        params = [username]
-        params.extend([search_term] * 5)
+    #     search_term = '%' + search_text + '%'
+    #     query = """
+    #     SELECT * FROM transactions
+    #     WHERE username = ?
+    #     AND (
+    #         description LIKE ? OR
+    #         type LIKE ? OR
+    #         source LIKE ? OR
+    #         income_or_expense LIKE ? OR
+    #         date LIKE ?
+    #     )
+    #     """
+    #     params = [username]
+    #     params.extend([search_term] * 5)
         
     
 
@@ -252,7 +252,7 @@ def search(username: str, search_text: str, filters: dict):
     final_results = []
     for record in results:
         record_list = list(record)
-        record_list.pop(1)
+        record_list.pop(1)  #removes username
         final_results.append(record_list)
 
     return final_results
