@@ -8,21 +8,38 @@ def connect_db():
     return conn
 
 
-def add_account(first_name:str, last_name:str, phone_number:str, username:str, password:str, email:str, security_answer:str, city:str, birthdate:str):
+def add_account(first_name: str, last_name: str, phone_number: str, username: str,\
+                password: str, email: str, security_answer: str, city: str, birthdate: str):
+    
     conn = connect_db()
     cursor = conn.cursor()
+    
     try:
-        cursor.execute("CREATE TABLE IF NOT EXISTS accounts(first_name TEXT NOT NULL,last_name TEXT NOT NULL, phone_number TEXT NOT NULL,\
-            username TEXT NOT NULL UNIQUE PRIMARY KEY, password TEXT NOT NULL, email TEXT NOT NULL UNIQUE, security_answer TEXT NOT NULL, city TEXT NOT NULL,\
-                birth_date DATE NOT NULL);")
+        
+        cursor.execute("""
+                       CREATE TABLE IF NOT EXISTS
+                            accounts(first_name TEXT NOT NULL,
+                                    last_name TEXT NOT NULL,
+                                    phone_number TEXT NOT NULL,
+                                    username TEXT NOT NULL UNIQUE PRIMARY KEY,
+                                    password TEXT NOT NULL,
+                                    email TEXT NOT NULL UNIQUE,
+                                    security_answer TEXT NOT NULL,
+                                    city TEXT NOT NULL,
+                                    birth_date DATE NOT NULL);
+                        """)
+        
         cursor.execute("INSERT INTO accounts(first_name, last_name, phone_number, username, password, email, security_answer, city, birth_date) \
-            VALUES ( ?, ? ,? ,? ,? ,? ,? ,? ,?);", [first_name, last_name, phone_number, username, password, email, security_answer, city, birthdate])
+            VALUES ( ?, ? ,? ,? ,? ,? ,? ,? ,?);", [first_name, last_name, phone_number, username, password, email, security_answer, city, birthdate]).
+        
         conn.commit()
         conn.close()
+        
     except:
-        return "email and username must be unique"
+        return "Email and username must be unique"
+    
     else:
-        return "sign up completed"
+        return "Sign up completed"
     
     
 def search_user(email_or_username):
@@ -112,7 +129,7 @@ def add_transaction(username, income_or_expense, amount, date, source, type, des
     conn.close()
 
 
-def add_category(username: str, category):
+def add_category(username: str, category: str):
     
     conn = connect_db()
     
@@ -392,15 +409,4 @@ def delete_expense(username):
     cursor.execute("DELETE FROM transactions WHERE username = ? AND income_or_expense = ?", [username, "expense"])
 
     conn.commit()
-    conn.close()    
-    
-
-if __name__ == "__main__":
-    # filters = {
-    #     'date_range': ['2000-06-06', '2004-06-06']
-    # }
-    # print(report("alireza", filters))
-    # print(total("alireza", "expense"))
-    # report("alireza", {})
-    pass
-    
+    conn.close()

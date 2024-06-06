@@ -21,7 +21,6 @@ class Ui_ReportWindow(QWidget):
         
         # Income or Expense
         self.comboBox_income_or_expense = QComboBox()
-        # self.comboBox_income_or_expense.addItem("Select", "")
         self.comboBox_income_or_expense.addItem("Income", "income")
         self.comboBox_income_or_expense.addItem("Expense", "expense")
         layout.addWidget(QLabel("Income or Expense:"))
@@ -153,7 +152,7 @@ class Ui_ReportWindow(QWidget):
 
         # Report Results Table
         self.results_table = QTableWidget()
-        self.results_table.setColumnCount(7)
+        self.results_table.setColumnCount(6)
         self.results_table.setHorizontalHeaderLabels(["Income/Expense", "Amount", "Date", "Source", "Description", "Type"])
         layout.addWidget(self.results_table)
 
