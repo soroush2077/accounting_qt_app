@@ -18,52 +18,52 @@ class Ui_SignUpWindow(object):
         MainWindow.setMinimumSize(QtCore.QSize(400, 600))
         MainWindow.setMaximumSize(QtCore.QSize(400, 600))
         
-        self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
+        self.centralwidget = QtWidgets.QWidget(parent = MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         
-        self.lineEdit = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit.setGeometry(QtCore.QRect(60, 20, 280, 30))
         self.lineEdit.setObjectName("lineEdit")
         self.lineEdit.setPlaceholderText("First Name")
         
-        self.lineEdit_2 = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_2 = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_2.setGeometry(QtCore.QRect(60, 60, 280, 30))
         self.lineEdit_2.setObjectName("lineEdit_2")
         self.lineEdit_2.setPlaceholderText("Last Name")
         
-        self.lineEdit_3 = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_3 = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_3.setGeometry(QtCore.QRect(60, 100, 280, 30))
         self.lineEdit_3.setObjectName("lineEdit_3")
         self.lineEdit_3.setPlaceholderText("Phone Number")
         
-        self.lineEdit_4 = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_4 = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_4.setGeometry(QtCore.QRect(60, 140, 280, 30))
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.lineEdit_4.setPlaceholderText("Username")
         
-        self.lineEdit_5 = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_5 = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_5.setGeometry(QtCore.QRect(60, 180, 280, 30))
         self.lineEdit_5.setObjectName("lineEdit_5")
         self.lineEdit_5.setPlaceholderText("Password")
         self.lineEdit_5.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         
-        self.lineEdit_6 = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_6 = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_6.setGeometry(QtCore.QRect(60, 220, 280, 30))
         self.lineEdit_6.setObjectName("lineEdit_6")
         self.lineEdit_6.setPlaceholderText("Repeat Password")
         self.lineEdit_6.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         
-        self.lineEdit_7 = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_7 = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_7.setGeometry(QtCore.QRect(60, 380, 280, 30))
         self.lineEdit_7.setObjectName("lineEdit_7")
         self.lineEdit_7.setPlaceholderText("Email")
         
-        self.lineEdit_8 = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_8 = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_8.setGeometry(QtCore.QRect(60, 340, 280, 30))
         self.lineEdit_8.setObjectName("lineEdit_8")
         self.lineEdit_8.setPlaceholderText("What is the name of your pet?")
         
-        self.comboBox = QtWidgets.QComboBox(parent=self.centralwidget)
+        self.comboBox = QtWidgets.QComboBox(parent = self.centralwidget)
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("Mashhad")
         self.comboBox.addItem("Tehran")
@@ -71,33 +71,37 @@ class Ui_SignUpWindow(object):
         self.comboBox.addItem("Shiraz")
         self.comboBox.addItem("Isfahan")
         self.comboBox.addItem("Karaj")
+        self.comboBox.addItem("Ahvaz")
+        self.comboBox.addItem("Birjand")
+        self.comboBox.addItem("Yazd")
+        self.comboBox.addItem("Semnan")
         self.comboBox.setEditable(True)
         self.comboBox.setCurrentText("City")
         self.comboBox.setGeometry(QtCore.QRect(60, 260, 280, 30))
         
         MainWindow.setCentralWidget(self.centralwidget)
         
-        self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
+        self.menubar = QtWidgets.QMenuBar(parent = MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 400, 25))
         self.menubar.setObjectName("menubar")
         
         MainWindow.setMenuBar(self.menubar)
         
-        self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
+        self.statusbar = QtWidgets.QStatusBar(parent = MainWindow)
         self.statusbar.setObjectName("statusbar")
         
         MainWindow.setStatusBar(self.statusbar)
         
-        self.pushButton_signUp=QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_signUp=QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_signUp.setGeometry(QtCore.QRect(60, 420, 280, 30))
         self.pushButton_signUp.setText("Sign Up")
         
-        self.label_error=QtWidgets.QLabel(parent=self.centralwidget)
+        self.label_error=QtWidgets.QLabel(parent = self.centralwidget)
         self.label_error.setText("")
         self.label_error.setStyleSheet("QLabel { color: red; font-weight: bold; font-style: italic; }")
         self.label_error.setGeometry(QtCore.QRect(60, 460, 280, 60))
         
-        self.date = QtWidgets.QDateEdit(parent=self.centralwidget)
+        self.date = QtWidgets.QDateEdit(parent = self.centralwidget)
         self.date.setCalendarPopup(True)
         self.date.setDisplayFormat("yyyy-MM-dd")
         self.date.setObjectName("date")
@@ -109,4 +113,3 @@ class Ui_SignUpWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-

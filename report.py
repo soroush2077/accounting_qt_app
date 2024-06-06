@@ -1,10 +1,10 @@
-import sys
 from PyQt6.QtWidgets import (
-    QApplication, QWidget, QVBoxLayout, QHBoxLayout,
+    QWidget, QVBoxLayout, QHBoxLayout,
     QLabel, QLineEdit, QComboBox, QCheckBox, QDateEdit, QDoubleSpinBox,
     QPushButton, QRadioButton, QButtonGroup, QTableWidget, QTableWidgetItem
 )
 from PyQt6.QtCore import QDate, QSize
+
 
 class Ui_ReportWindow(QWidget):
 

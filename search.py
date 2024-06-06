@@ -1,11 +1,10 @@
-import sys
 from PyQt6.QtWidgets import (
-    QApplication, QWidget, QVBoxLayout, QHBoxLayout,
+    QWidget, QVBoxLayout, QHBoxLayout,
     QLabel, QLineEdit, QComboBox, QDateEdit, QDoubleSpinBox,
     QPushButton, QCheckBox, QRadioButton, QButtonGroup, QTableWidget, QTableWidgetItem
 )
 from PyQt6.QtCore import QDate, QSize
-from PyQt6 import QtGui
+
 
 class Ui_SearchWindow(QWidget):
 

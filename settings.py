@@ -14,35 +14,35 @@ class Ui_Setting(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(550, 600)
         
-        self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
+        self.centralwidget = QtWidgets.QWidget(parent = MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         
-        self.lineEdit_firstname = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_firstname = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_firstname.setGeometry(QtCore.QRect(50, 40, 200, 30))
         self.lineEdit_firstname.setObjectName("lineEdit_firstname")
         self.lineEdit_firstname.setPlaceholderText("First Name")
         
-        self.lineEdit_lastname = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_lastname = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_lastname.setGeometry(QtCore.QRect(300, 40, 200, 30))
         self.lineEdit_lastname.setObjectName("lineEdit_lastname")
         self.lineEdit_lastname.setPlaceholderText("Last Name")
         
-        self.lineEdit_phonenumber = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_phonenumber = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_phonenumber.setGeometry(QtCore.QRect(50, 90, 200, 30))
         self.lineEdit_phonenumber.setObjectName("lineEdit_phonenumber")
         self.lineEdit_phonenumber.setPlaceholderText("Phone Number")
         
-        self.lineEdit_password = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_password = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_password.setGeometry(QtCore.QRect(300, 90, 200, 30))
         self.lineEdit_password.setObjectName("lineEdit_password")
         self.lineEdit_password.setPlaceholderText("Password")
         
-        self.lineEdit_security_answer = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_security_answer = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_security_answer.setGeometry(QtCore.QRect(50, 140, 200, 30))
         self.lineEdit_security_answer.setObjectName("lineEdit_security_answer")
         self.lineEdit_security_answer.setPlaceholderText("Security Answer")
         
-        self.comboBox = QtWidgets.QComboBox(parent=self.centralwidget)
+        self.comboBox = QtWidgets.QComboBox(parent = self.centralwidget)
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("Mashhad")
         self.comboBox.addItem("Tehran")
@@ -54,46 +54,46 @@ class Ui_Setting(object):
         self.comboBox.setCurrentText("City")
         self.comboBox.setGeometry(QtCore.QRect(300, 140, 200, 30))
         
-        self.date = QtWidgets.QDateEdit(parent=self.centralwidget)
+        self.date = QtWidgets.QDateEdit(parent = self.centralwidget)
         self.date.setCalendarPopup(True)
         self.date.setDisplayFormat("yyyy-MM-dd")
         self.date.setObjectName("date")
         self.date.setGeometry(QtCore.QRect(50, 190, 200, 30))
         
-        self.pushButton_editprofile = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_editprofile = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_editprofile.setGeometry(QtCore.QRect(300, 190, 200, 30))
         self.pushButton_editprofile.setObjectName("pushButton_editprofile")
         
-        self.pushButton_deleteAcount = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_deleteAcount = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_deleteAcount.setGeometry(QtCore.QRect(125, 450, 300, 50))
         self.pushButton_deleteAcount.setObjectName("pushButton_deleteAcount")
         
-        self.pushButton_all_trans = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_all_trans = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_all_trans.setGeometry(QtCore.QRect(125, 280, 300, 50))
         self.pushButton_all_trans.setObjectName("pushButton_all_trans")
         
-        self.label_result = QtWidgets.QLabel(parent=self.centralwidget)
+        self.label_result = QtWidgets.QLabel(parent = self.centralwidget)
         self.label_result.setGeometry(QtCore.QRect(125, 230, 300, 30))
         self.label_result.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_result.setText("")
         
-        self.pushButton_income_trans = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_income_trans = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_income_trans.setGeometry(QtCore.QRect(50, 370, 200, 30))
         self.pushButton_income_trans.setObjectName("pushButton_income_trans")
         
-        self.pushButton_expense_trans = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_expense_trans = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_expense_trans.setGeometry(QtCore.QRect(300, 370, 200, 30))
         self.pushButton_expense_trans.setObjectName("pushButton_expense_trans")
         
         MainWindow.setCentralWidget(self.centralwidget)
         
-        self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
+        self.menubar = QtWidgets.QMenuBar(parent = MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 550, 25))
         self.menubar.setObjectName("menubar")
         
         MainWindow.setMenuBar(self.menubar)
         
-        self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
+        self.statusbar = QtWidgets.QStatusBar(parent = MainWindow)
         self.statusbar.setObjectName("statusbar")
         
         MainWindow.setStatusBar(self.statusbar)

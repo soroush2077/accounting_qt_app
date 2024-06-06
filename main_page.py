@@ -16,51 +16,51 @@ class Ui_MainPage(object):
         MainWindow.setMinimumSize(QtCore.QSize(800, 500))
         MainWindow.setMaximumSize(QtCore.QSize(800, 500))        
         
-        self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
+        self.centralwidget = QtWidgets.QWidget(parent = MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         
-        self.pushButton_exit = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_exit = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_exit.setGeometry(QtCore.QRect(310, 350, 200, 40))
         self.pushButton_exit.setObjectName("pushButton_exit")
         
-        self.label_head = QtWidgets.QLabel(parent=self.centralwidget)
+        self.label_head = QtWidgets.QLabel(parent = self.centralwidget)
         self.label_head.setGeometry(QtCore.QRect(90, 0, 631, 121))
         self.label_head.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_head.setObjectName("label_head")
         
-        self.pushButton_income = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_income = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_income.setGeometry(QtCore.QRect(60, 130, 200, 50))
         self.pushButton_income.setObjectName("pushButton_income")
         
-        self.pushButton_expense = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_expense = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_expense.setGeometry(QtCore.QRect(310, 130, 200, 50))
         self.pushButton_expense.setObjectName("pushButton_expense")
         
-        self.pushButton_categories = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_categories = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_categories.setGeometry(QtCore.QRect(570, 130, 200, 50))
         self.pushButton_categories.setObjectName("pushButton_categories")
         
-        self.pushButton_search = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_search = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_search.setGeometry(QtCore.QRect(60, 230, 200, 50))
         self.pushButton_search.setObjectName("pushButton_search")
         
-        self.pushButton_reports = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_reports = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_reports.setGeometry(QtCore.QRect(310, 230, 200, 50))
         self.pushButton_reports.setObjectName("pushButton_reports")
         
-        self.pushButton_settings = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_settings = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_settings.setGeometry(QtCore.QRect(570, 230, 200, 50))
         self.pushButton_settings.setObjectName("pushButton_settings")
         
         MainWindow.setCentralWidget(self.centralwidget)
         
-        self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
+        self.menubar = QtWidgets.QMenuBar(parent = MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 25))
         self.menubar.setObjectName("menubar")
         
         MainWindow.setMenuBar(self.menubar)
         
-        self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
+        self.statusbar = QtWidgets.QStatusBar(parent = MainWindow)
         self.statusbar.setObjectName("statusbar")
         
         MainWindow.setStatusBar(self.statusbar)

@@ -19,7 +19,7 @@ class Ui_IncomeWindow(object):
         self.centralwidget = QtWidgets.QWidget(parent = MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         
-        self.lineEdit_income = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_income = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_income.setGeometry(QtCore.QRect(100, 70, 200, 30))
         self.lineEdit_income.setObjectName("lineEdit_income")
         self.lineEdit_income.setPlaceholderText("Transaction amount")
@@ -31,10 +31,10 @@ class Ui_IncomeWindow(object):
         self.dateEdit_date.setGeometry(QtCore.QRect(100, 120, 200, 30))
         self.dateEdit_date.setObjectName("dateEdit_date")
         
-        self.comboBox_source = QtWidgets.QComboBox(parent=self.centralwidget)
+        self.comboBox_source = QtWidgets.QComboBox(parent = self.centralwidget)
         self.comboBox_source.setGeometry(QtCore.QRect(100, 170, 200, 30))
               
-        self.lineEdit_description = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.lineEdit_description = QtWidgets.QLineEdit(parent = self.centralwidget)
         self.lineEdit_description.setGeometry(QtCore.QRect(100, 220, 200, 90))
         self.lineEdit_description.setObjectName("lineEdit_description")
         self.lineEdit_description.setPlaceholderText("Transaction Description (optional)")
@@ -54,19 +54,19 @@ class Ui_IncomeWindow(object):
         self.comboBox_type.addItem("Cash")
         self.comboBox_type.addItem("Digital Currency")
         
-        self.pushButton_submit = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_submit = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_submit.setGeometry(QtCore.QRect(100, 450, 200, 50))
         self.pushButton_submit.setObjectName("pushButton_submit")
         
         MainWindow.setCentralWidget(self.centralwidget)
         
-        self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
+        self.menubar = QtWidgets.QMenuBar(parent = MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 400, 25))
         self.menubar.setObjectName("menubar")
         
         MainWindow.setMenuBar(self.menubar)
         
-        self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
+        self.statusbar = QtWidgets.QStatusBar(parent = MainWindow)
         self.statusbar.setObjectName("statusbar")
         
         MainWindow.setStatusBar(self.statusbar)

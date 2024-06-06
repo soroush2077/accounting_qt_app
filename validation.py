@@ -195,5 +195,3 @@ def valid_range(min: int, max: int):
         return "In amount range max must be greater than min"
     
     return "OK"
-    
-    

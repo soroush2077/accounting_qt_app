@@ -100,7 +100,7 @@ def user_forgot_pass(email_or_username: str, security_answer: str):
      
 
 
-def add_transaction(username, income_or_expense, amount, date, source, type, description = None):
+def add_transaction(username: str, income_or_expense: str, amount: int, date: str, source: str, type: str, description: str = None):
   
     
     conn = connect_db()
@@ -224,25 +224,6 @@ def search(username: str, search_text: str, filters: dict):
         query += " AND source = ?"
         params.append('%' + search_text + '%')
 
-
-    # if 'search' in filters and len(filters) == 1:
-
-    #     search_term = '%' + search_text + '%'
-    #     query = """
-    #     SELECT * FROM transactions
-    #     WHERE username = ?
-    #     AND (
-    #         description LIKE ? OR
-    #         type LIKE ? OR
-    #         source LIKE ? OR
-    #         income_or_expense LIKE ? OR
-    #         date LIKE ?
-    #     )
-    #     """
-    #     params = [username]
-    #     params.extend([search_term] * 5)
-        
-    
 
     cursor.execute(query, params)
     results = cursor.fetchall()

@@ -19,7 +19,7 @@ class Ui_ForgotPassWindow(object):
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         
-        self.pushButton_forgot_pass = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.pushButton_forgot_pass = QtWidgets.QPushButton(parent = self.centralwidget)
         self.pushButton_forgot_pass.setGeometry(QtCore.QRect(90, 450, 200, 40))
         self.pushButton_forgot_pass.setObjectName("pushButton_forgot_pass")
         
@@ -61,7 +61,5 @@ class Ui_ForgotPassWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton_forgot_pass.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton_forgot_pass.setText(_translate("MainWindow", "Submit"))
        #self.label.setText(_translate("MainWindow", "To recover your password, enter your username or email and answer the security question"))
-
-        
