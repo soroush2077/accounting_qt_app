@@ -293,12 +293,13 @@ class Category(QtWidgets.QMainWindow,Ui_Category):
                 
                 
 class SearchWindow(QtWidgets.QMainWindow, Ui_SearchWindow):
+    
     def __init__(self):
         super(SearchWindow, self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Search")
-        # self.comboBox_source.addItems([item[0] for item in dataBase.get_categories(user_class.curent_user)])
         self.pushButton_search.clicked.connect(self.pushButton_search_clicked)
+        
         
     def pushButton_search_clicked(self):
         
@@ -306,13 +307,11 @@ class SearchWindow(QtWidgets.QMainWindow, Ui_SearchWindow):
             self.label_error.setStyleSheet("QLabel { color: red; font-weight: bold; font-style: italic; }")
             self.label_error.setText(validation.valid_search_text(self.lineEdit_search.text()))
         
-
-         
+        
         else:
             self.label_error.setText("")
             filters = {'search': self.lineEdit_search.text()}    
         
-            
             if self.comboBox_income_or_expense.currentText() == "Income":
                 filters["income_or_expense"] = "income"  
             elif self.comboBox_income_or_expense.currentText() == "Expense":
@@ -327,19 +326,15 @@ class SearchWindow(QtWidgets.QMainWindow, Ui_SearchWindow):
             
             if validation.valid_range(int(self.min_amount_spin.value()), int(self.max_amount_spin.value())) == "OK":   
                 filters["amount_range"] = [int(self.min_amount_spin.value()), int(self.max_amount_spin.value())]
-
                 
             if self.checkBox_description.isChecked():
                 filters["description"] = ""
                 
             if self.checkBox_type.isChecked():
-                # if self.comboBox_type.currentText() != "Select Type":
-                    filters["type"] = ""
+                filters["type"] = ""
                     
             if self.checkBox_source.isChecked():
-                # if self.comboBox_source.currentText() != "Select Source":
-                    filters["source"] = ""
-                
+                filters["source"] = ""
                 
             result = dataBase.search(user_class.curent_user, self.lineEdit_search.text(), filters)
             self.populate_table(result)
@@ -347,12 +342,14 @@ class SearchWindow(QtWidgets.QMainWindow, Ui_SearchWindow):
 
 
 class ReportWindow(QtWidgets.QMainWindow, Ui_ReportWindow):
+    
     def __init__(self):
         super(ReportWindow, self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Report")
         self.comboBox_source.addItems([item[0] for item in dataBase.get_categories(user_class.curent_user)])
         self.pushButton_report.clicked.connect(self.pushButton_report_clicked)
+        
         
     def pushButton_report_clicked(self):
         
@@ -387,7 +384,6 @@ class ReportWindow(QtWidgets.QMainWindow, Ui_ReportWindow):
             if self.comboBox_source.currentText() != "Select Source":
                 filters["source"] = self.comboBox_source.currentText()
             
-
         result = dataBase.report(user_class.curent_user, filters)
         self.populate_table(result)
         self.label_total.setText(f"Total in this filters = {dataBase.results_total(result)}")
@@ -451,10 +447,13 @@ class SettingWindow(QtWidgets.QMainWindow, Ui_Setting):
     def delete_expense_trans(self):
         dataBase.delete_expense(user_class.curent_user)
         self.label_result.setText("All expense transaction deleted")
+        
     def delete_all_trans(self):
         self.delete_income_trans()
         self.delete_expense_trans()
         self.label_result.setText("All transactions deleted")
+
+
 
 class user_class:
     curent_user = ""
@@ -463,8 +462,13 @@ class user_class:
 
 
 
-if __name__ == "__main__":
+def main():
     app = QtWidgets.QApplication(sys.argv)
     main_window = StartWindow()
     main_window.show()
     app.exec()
+
+
+
+if __name__ == "__main__":
+    main()

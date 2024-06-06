@@ -24,7 +24,7 @@ class Ui_SearchWindow(QWidget):
         
         layout = QVBoxLayout()
     
-        # General search text
+        # Search text
         self.lineEdit_search = QLineEdit()
         layout.addWidget(QLabel("Search:"))
         layout.addWidget(self.lineEdit_search)
@@ -104,26 +104,12 @@ class Ui_SearchWindow(QWidget):
 
         # Type
         self.checkBox_type = QCheckBox("Include Type in Search")
-        # self.checkBox_type.toggled.connect(self.toggle_type)
-        
-        # self.comboBox_type = QComboBox()
-        # self.comboBox_type.addItem("Select Type", "")
-        # self.comboBox_type.addItem("Check")
-        # self.comboBox_type.addItem("Cash")
-        # self.comboBox_type.addItem("Digital Currency")
-        # self.comboBox_type.setEnabled(False)
         layout.addWidget(self.checkBox_type)
-        # layout.addWidget(self.comboBox_type)
 
         # Source
         self.checkBox_source = QCheckBox("Include Source in Search")
-        # self.checkBox_source.toggled.connect(self.toggle_source)
-        
-        # self.comboBox_source = QComboBox()
-        # self.comboBox_source.addItem("Select Source", "")
-        # self.comboBox_source.setEnabled(False)
+
         layout.addWidget(self.checkBox_source)
-        # layout.addWidget(self.comboBox_source)
 
 
         # Search Button
@@ -147,11 +133,6 @@ class Ui_SearchWindow(QWidget):
         self.lineEdit_month.setEnabled(self.radioButton_month.isChecked())
         self.lineEdit_year.setEnabled(self.radioButton_year.isChecked())
 
-    # def toggle_type(self):
-    #     self.comboBox_type.setEnabled(self.checkBox_type.isChecked())
-        
-    # def toggle_source(self):
-    #     self.comboBox_source.setEnabled(self.checkBox_source.isChecked())
     
     def populate_table(self, data):
         self.results_table.setRowCount(len(data))
